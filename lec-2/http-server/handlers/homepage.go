@@ -1,10 +1,13 @@
 package handlers
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 )
 
 func HomePage(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "<h1>Hello World!</h1>")
+	var data = map[string]interface{}{
+		"msg": "Hello world",
+	}
+	json.NewEncoder(w).Encode(data)
 }
