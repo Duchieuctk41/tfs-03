@@ -16,22 +16,15 @@ var (
 func Calculator(w http.ResponseWriter, req *http.Request) {
 	params := req.URL.Query()
 	fmt.Println(params)
-	if operatorType, ok := params["operator"]; !ok {
-		fmt.Fprintf(w, "Operator undefine! ", operatorType)
-	} else {
+	if operatorType, ok := params["operator"]; ok {
 		operator = operatorType[0]
 	}
-	if number1, ok := params["num1"]; !ok {
-		fmt.Fprintf(w, "num1 underfine! ", number1)
-	} else {
+	if number1, ok := params["num1"]; ok {
 		num1, _ = strconv.ParseFloat(number1[0], 64)
 	}
-	if number2, ok := params["num2"]; !ok {
-		fmt.Fprintf(w, "num2 underfine! ", number2)
-	} else {
+	if number2, ok := params["num2"]; ok {
 		num2, _ = strconv.ParseFloat(number2[0], 64)
 	}
-
 	result := Calc(operator, num1, num2)
 	var data = map[string]interface{}{
 		"msg": result,
