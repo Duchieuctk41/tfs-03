@@ -2,7 +2,7 @@ package main
 
 import (
 	// import local package
-	"json-parse/handle_json"
+	"./handle_json"
 )
 
 func main() {
