@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"fibonacci/fibo"
+	"./fibo"
 )
 
 func main() {
