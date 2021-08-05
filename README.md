@@ -7,51 +7,34 @@
 # Directory's tree
 ```
 |   README.md
-|
-+---exercises
-|   +---algorithm
-|   |   |   main.go
-|   |   |
-|   |   +---bubble_sort
-|   |   |       bubble_sort.go
-|   |   |
-|   |   +---merge_sort
-|   |   |       merge_sort.go
-|   |   |
-|   |   \---quick_sort
-|   |           quick_sort.go
-|   |
-|   +---calculator
-|   |   |   main.go
-|   |   |
-|   |   \---calc
-|   |           calc.go
-|   |
-|   +---find-number
-|   |   |   main.go
-|   |   |
-|   |   \---find
-|   |           find.go
-|   |
-|   \---read-file
-|       |   main.go
-|       |
-|       +---read
-|       |       read.go
-|       |
-|       \---text
-|               text.txt
-|
-\---on-class-practises
-    +---fibonacci
-    |   |   main.go
-    |   |
-    |   \---fibo
-    |           fibo_calculator.go
-    |
-    \---json-parse
-        |   main.go
-        |
-        \---handle_json
-                handle_json.go
+├───.idea
+├───lec-1
+└───lec-2
+    ├───.idea
+    ├───codebyexample
+    │   └───tmp
+    ├───exercises
+    │   ├───algorithm
+    │   │   ├───bubble_sort
+    │   │   ├───merge_sort
+    │   │   └───quick_sort
+    │   ├───calculator
+    │   │   ├───calc
+    │   │   └───server
+    │   ├───find-number
+    │   │   └───find
+    │   ├───prime-number
+    │   │   └───prime
+    │   └───read-file
+    │       ├───read
+    │       └───text
+    ├───http-server
+    │   ├───handlers
+    │   └───server
+    └───on-class-practises
+        ├───fibonacci
+        │   └───fibo
+        └───json-parse
+            └───handle_json
+
 ```
