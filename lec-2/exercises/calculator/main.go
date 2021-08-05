@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"./calc"
+	"./server"
 )
 
 func main() {
-	fmt.Println(calculator.Calc("mul", 6, 8))
+	server.RunServer()
 }
