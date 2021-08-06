@@ -91,4 +91,38 @@ num2 := num1[:] // khai báo slice
 - [log.fatal với panic](https://stackoverflow.com/questions/35996966/what-are-the-differences-in-outcome-for-panic-vs-log-fatalln-in-golang)  khác nhau chỗ nào
 - [benchmark](https://pkg.go.dev/testing): test chạy nhanh hay chậm, tốn bao nhiêu resource
 
+### Goroutine
+- Tạo ra một tiểu trình
+```sh
+go f(x, y, z) // khởi tạo goroutine
+f(x, y, z) // chạy goroutine
+```
+
+### Chanel
+- Luồng cho các tiểu trình chạy
+```sh
+ch <- v    // Send v to channel ch.
+v := <-ch  // Receive from ch, and assign value to v.
+ch := make(chan int) // tiểu trình phải được tạo bằng make
+ch := make(chan int, 100) // thêm buffer
+```
+### Range and close
+```sh
+v, ok := <-ch  
+close(ch)
+```
+- ok == false khi ko còn gì để nhận, và kênh sẽ bị đóng
+channel luôn được đóng từ phía người gửi, ko bao giờ là người nhận.
+
+### Select
+- Lựa chọn hành động gửi và nhận của chanel. Cái nào sẵn sàng trước sẽ được trả về trước.
+- Trong trường hợp có nhiều cái đã.sẵn sàng thì chọn ngẫu nhiên 1 cái
+- Ứng dụng trong trường hợp gọi đến nhiều server, cái nào nhanh hơn sẽ đc trả về kết quả
+- **Select default**: trong trường hợp chưa có chanel nào sẵn sàng. select default sẽ được kích hoạt. Dùng cho trường hợp ngăn câu lệnh select bị block mãi mãi.
+
+### Mutex (Mutual exclusion)
+- Khi chương trình concurrency được thực thi, các goroutines đôi khi sẽ truy cập đến resource cùng một lúc (**critical section**). Việc này làm cho resource được cập nhật sai giá trị.
+- Vì vậy cần sử dụng Mutex để chỉ cho 1 goroutine truy cập vào resource tại 1 thời điểm nhất định
+
+
 
