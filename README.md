@@ -6,88 +6,6 @@
 
 # Directory's tree
 ```
-├───.idea
-├───code_fl_example
-│   ├───goroutine
-│   │   └───tree
-│   ├───interface_in_go
-│   ├───line_filter
-│   └───mutex
-└───exercises
-    ├───algorithm
-    │   ├───bubble_sort
-    │   ├───merge_sort
-    │   └───quick_sort
-    ├───calculator
-    │   ├───calc
-    │   └───server
-    ├───fibonacci
-    │   └───fibo
-    ├───find-number
-    │   └───find
-    ├───http-server
-    │   ├───handlers
-    │   └───server
-    ├───json-parse
-    │   └───handle_json
-    ├───prime-number
-    │   └───prime
-    └───read-file
-        ├───read
-        └───text
-PS D:\GOPATH\src\tfs-03\lec-2> cd ..
-PS D:\GOPATH\src\tfs-03> tree
-Folder PATH listing
-Volume serial number is 7439-065D
-D:.
-├───.idea
-├───lec-1
-├───lec-2
-│   ├───.idea
-│   ├───code_fl_example
-│   │   ├───goroutine
-│   │   │   └───tree
-│   │   ├───interface_in_go
-│   │   ├───line_filter
-│   │   └───mutex
-│   └───exercises
-│       ├───algorithm
-│       │   ├───bubble_sort
-│       │   ├───merge_sort
-│       │   └───quick_sort
-│       ├───calculator
-│       │   ├───calc
-│       │   └───server
-│       ├───fibonacci
-│       │   └───fibo
-│       ├───find-number
-│       │   └───find
-│       ├───http-server
-│       │   ├───handlers
-│       │   └───server
-│       ├───json-parse
-│       │   └───handle_json
-│       ├───prime-number
-│       │   └───prime
-│       └───read-file
-│           ├───read
-│           └───text
-└───lec-3
-PS D:\GOPATH\src\tfs-03> tree -L 1 --charset=ascii
-Too many parameters - 1
-PS D:\GOPATH\src\tfs-03> pandoc
-pandoc : The term 'pandoc' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path 
-was included, verify that the path is correct and try again.
-At line:1 char:1
-+ pandoc
-+ ~~~~~~
-    + CategoryInfo          : ObjectNotFound: (pandoc:String) [], CommandNotFoundException
-    + FullyQualifiedErrorId : CommandNotFoundException
- 
-PS D:\GOPATH\src\tfs-03> Tree /F
-Folder PATH listing
-Volume serial number is 7439-065D
-D:.
 │   .gitignore
 │   README.md
 │
@@ -194,4 +112,5 @@ D:.
 │                   text.txt
 │
 └───lec-3
+
 ```
