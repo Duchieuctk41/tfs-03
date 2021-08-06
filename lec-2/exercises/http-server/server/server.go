@@ -3,9 +3,7 @@ package server
 import (
 	"fmt"
 	"net/http"
-
-	//import local package
-	"../handlers"
+	handlers2 "tfs-03/lec-2/exercises/http-server/handlers"
 )
 
 func RunServer() {
@@ -15,13 +13,13 @@ func RunServer() {
 		fmt.Println("Server is stopped.")
 	}()
 
-	http.HandleFunc("/", handlers.HomePage)
+	http.HandleFunc("/", handlers2.HomePage)
 
-	http.HandleFunc("/hello", handlers.Hello)
+	http.HandleFunc("/hello", handlers2.Hello)
 
-	http.HandleFunc("/api/student", handlers.GetAStudent)
+	http.HandleFunc("/api/student", handlers2.GetAStudent)
 
-	http.HandleFunc("/api/students", handlers.GetStudents)
+	http.HandleFunc("/api/students", handlers2.GetStudents)
 
 	//run server
 	if err := http.ListenAndServe(":3000", nil); err != nil {
