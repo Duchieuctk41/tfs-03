@@ -13,9 +13,12 @@
 - [net/http](https://pkg.go.dev/net/http) - triển khai http client - server
 - [strconv](https://pkg.go.dev/strconv) - chuyển đổi: chuỗi <=> số
 - [encoding/json](https://pkg.go.dev/encoding/json) - decode và encode định dạng json (Marshal - Unmarshal)
-
+### Data Types
+- Basic Types - byte, int, float32, float64, string, bool, uint
+- Aggregate Types - Array & Struct
+- Reference Types - Pointer & slice
+- Interface Types - như tên gọi
 ### Variable
-- byte, int, float32, float64, string, bool, uint
 - Khai báo dữ liệu
  ```sh
 var variableName dataType = initialValue (bỏ dataType nó vẫn hiểu)
@@ -25,12 +28,17 @@ variableName1 dataType = initialValue1
 variableName2 dataType = initialValue2, 
 )
 const cho hằng số
+// ép kiểu
+var myfloat2 float64
+myint2 := int(myfloat2)
 ```
 ### Function
 - Viết hoa chữ đầu là public, để camelCase là private
 - [Closures](https://tour.golang.org/moretypes/25) - hàm tham chiếu đến các giá trị ở bên ngoài nó, lưu lại giá trị ngay cả khi func ngoài đã kết thúc
 
 ### Map
+- Là đại diện của hash table
+![hash_table](https://res.cloudinary.com/duchieu/image/upload/v1628231751/test/uv61nbykbv3xurdcgt9b.png)
 - Kiểu dử liệu gồm key/value (giống object trong javascript)
 - Map là dạng reference type (pass by reference)
 - Khi khởi tạo mà ko có make >> giá trị trả về nil >> panic
@@ -59,7 +67,7 @@ var variableName1 *nameType = &variableName2
 ```
 
 ### Method
-- [method](https://techmaster.vn/posts/35044/series-golang-co-ban-phan-17-methods-phuong-thuc) giống classes trong OOP
+- [method](https://tutorialedge.net/golang/go-methods-tutorial/) giống classes trong OOP
 - Được khai báo trong hàm gồm receiver và receiverType
 ```sh
 func (t Type) methodName(parameter list) {
