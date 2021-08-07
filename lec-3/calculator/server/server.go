@@ -12,7 +12,7 @@ func RunServer() {
 	defer func() {
 		fmt.Println("Server is Stopped")
 	}()
-
+		
 	http.HandleFunc("/calc", calc.Calculator)
 
 	// run server
