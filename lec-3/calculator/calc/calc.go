@@ -9,10 +9,9 @@ import (
 var operatorsArray = make([]string, 5)
 var numbersArray = make([]float64, 6)
 
-
 type Calc struct {
 	Operators []string
-	Numbers []float64
+	Numbers   []float64
 }
 
 type ErrorString struct {
@@ -23,7 +22,7 @@ type CatchError interface {
 	Error() string
 }
 
-func (e *ErrorString) Error() string{
+func (e *ErrorString) Error() string {
 	return e.s
 }
 
@@ -39,8 +38,8 @@ func calcMultiAndDivide() func() ([]string, []float64) {
 					result = numbersArray[i] * numbersArray[i+1]
 				}
 				if s == "/" {
-					if numbersArray[i] == 0 {
-						var err CatchError =  &ErrorString { s: "Phép chia cho 0 thì Chịu, không tính được." }
+					if numbersArray[i+1] == 0 {
+						var err CatchError = &ErrorString{s: "Phép chia cho 0 thì Chịu, không tính được."}
 						errDiv = err.Error()
 						return nil, nil
 					}
@@ -99,30 +98,49 @@ func calcAddAndSub() func() ([]string, []float64) {
 	}
 }
 
+func AddCorsHeader(res http.ResponseWriter) {
+	headers := res.Header()
+	headers.Set("Access-Control-Allow-Origin", "*")
+	headers.Set("Access-Control-Allow-Headers", "Content-Type")
+}
+
 func Calculator(w http.ResponseWriter, req *http.Request) {
+	AddCorsHeader(w)
+	if req.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
 
 	var p Calc
 	// Try to decode the request body into the struct. If there is an error,
 	// respond to the client with the error message and a 400 status code.
 	err := json.NewDecoder(req.Body).Decode(&p)
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	defer req.Body.Close()
+
 	operatorsArray = p.Operators
 	numbersArray = p.Numbers
+	fmt.Println("operatorsArray:", p.Operators)
+	fmt.Println("operatorsArray:", p.Numbers)
 
 	runClosureMulDiv := calcMultiAndDivide()
 	for i := 0; i <= len(operatorsArray); i++ {
+
 		if errDiv != "" {
-			var data = map[string]interface{}{
+			var response = map[string]interface{}{
 				"msg": errDiv,
 			}
-			json.NewEncoder(w).Encode(data)
+			fmt.Println(response)
+			json.NewEncoder(w).Encode(response)
 			return
 		}
 		runClosureMulDiv()
 	}
+
 	runClosureAddSub := calcAddAndSub()
 	for i := 0; i <= len(operatorsArray); i++ {
 		fmt.Println(i)
@@ -131,5 +149,8 @@ func Calculator(w http.ResponseWriter, req *http.Request) {
 	var data = map[string]interface{}{
 		"msg": numbersArray[0],
 	}
+	fmt.Println(data)
+
 	json.NewEncoder(w).Encode(data)
+
 }
