@@ -6,36 +6,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculate Everything</title>
+  <link rel="stylesheet" href="style.css">
  <script src="./index.js"></script>
 </head>
 
 <body>
-  <h1>Calculate Everything</h1>
   <div class="container">
     <div class="screen">
-      <h3>0</h3>
+      <h4>0</h4>
       <h3>Result</h3>
     </div>
     <div class="keyboard">
-      <button class="key">C</button>
-      <button class="key">DE</button>
-      <button class="key" onclick="addOperators('%')">%</button>
-      <button class="key" onclick="addOperators('/')">/</button>
+      <button class="key --gray-dark">C</button>
+      <button class="key --gray-dark">DE</button>
+      <button class="key --gray-dark" onclick="addOperators('%')">%</button>
+      <button class="key --gray-dark" onclick="addOperators('/')">/</button>
       <button class="key" onclick="addNumbers('7')">7</button>
       <button class="key" onclick="addNumbers('8')">8</button>
       <button class="key" onclick="addNumbers('9')">9</button>
-      <button class="key" onclick="addOperators('*')">X</button>
+      <button class="key --yellow" onclick="addOperators('*')">X</button>
       <button class="key" onclick="addNumbers('4')">4</button>
       <button class="key" onclick="addNumbers('5')">5</button>
       <button class="key" onclick="addNumbers('6')">6</button>
-      <button class="key" onclick="addOperators('-')">-</button>
+      <button class="key --yellow" onclick="addOperators('-')">-</button>
       <button class="key" onclick="addNumbers('1')">1</button>
       <button class="key" onclick="addNumbers('2')">2</button>
       <button class="key" onclick="addNumbers('3')">3</button>
-      <button class="key" onclick="addOperators('+')">+</button>
-      <button class="key" onclick="addNumbers('0')">0</button>
+      <button class="key --yellow" onclick="addOperators('+')">+</button>
+      <button class="key col-2" onclick="addNumbers('0')">0</button>
       <button class="key">.</button>
-      <button class="key" onclick="handleSubmit()">=</button>
+      <button class="key --yellow" onclick="handleSubmit()">=</button>
     </div>
   </div>
 </body>
