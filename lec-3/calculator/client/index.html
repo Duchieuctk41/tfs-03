@@ -13,12 +13,12 @@
 <body>
   <div class="container">
     <div class="screen">
-      <h4>0</h4>
-      <h3>Result</h3>
+      <h4 id="inputscr">0</h4>
+      <h3 id="ouputscr">Result</h3>
     </div>
     <div class="keyboard">
-      <button class="key --gray-dark">C</button>
-      <button class="key --gray-dark">DE</button>
+      <button class="key --gray-dark" onclick="clearAll()">C</button>
+      <button class="key --gray-dark" onclick="deleteInput()">DE</button>
       <button class="key --gray-dark" onclick="addOperators('%')">%</button>
       <button class="key --gray-dark" onclick="addOperators('/')">/</button>
       <button class="key" onclick="addNumbers('7')">7</button>
@@ -34,7 +34,7 @@
       <button class="key" onclick="addNumbers('3')">3</button>
       <button class="key --yellow" onclick="addOperators('+')">+</button>
       <button class="key col-2" onclick="addNumbers('0')">0</button>
-      <button class="key">.</button>
+      <button class="key" onclick="addComma()">.</button>
       <button class="key --yellow" onclick="handleSubmit()">=</button>
     </div>
   </div>

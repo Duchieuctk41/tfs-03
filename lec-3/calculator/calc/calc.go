@@ -2,7 +2,7 @@ package calc
 
 import (
 	"encoding/json"
-	"fmt"
+	"math"
 	"net/http"
 )
 
@@ -32,10 +32,17 @@ func calcMultiAndDivide() func() ([]string, []float64) {
 
 	return func() ([]string, []float64) {
 		for i, s := range operatorsArray {
-			if s == "*" || s == "/" {
+			if s == "*" || s == "/" || s == "%" {
 				result := 0.0
 				if s == "*" {
 					result = numbersArray[i] * numbersArray[i+1]
+				}
+				if s == "%" {
+					if math.Mod(numbersArray[i]/numbersArray[i+1], 1.0) == 0.0 {
+						result = 0
+					} else {
+						result = 1
+					}
 				}
 				if s == "/" {
 					if numbersArray[i+1] == 0 {
@@ -124,8 +131,6 @@ func Calculator(w http.ResponseWriter, req *http.Request) {
 
 	operatorsArray = p.Operators
 	numbersArray = p.Numbers
-	fmt.Println("operatorsArray:", p.Operators)
-	fmt.Println("operatorsArray:", p.Numbers)
 
 	runClosureMulDiv := calcMultiAndDivide()
 	for i := 0; i <= len(operatorsArray); i++ {
@@ -134,8 +139,8 @@ func Calculator(w http.ResponseWriter, req *http.Request) {
 			var response = map[string]interface{}{
 				"msg": errDiv,
 			}
-			fmt.Println(response)
 			json.NewEncoder(w).Encode(response)
+			errDiv = ""
 			return
 		}
 		runClosureMulDiv()
@@ -143,14 +148,11 @@ func Calculator(w http.ResponseWriter, req *http.Request) {
 
 	runClosureAddSub := calcAddAndSub()
 	for i := 0; i <= len(operatorsArray); i++ {
-		fmt.Println(i)
 		runClosureAddSub()
 	}
 	var data = map[string]interface{}{
 		"msg": numbersArray[0],
 	}
-	fmt.Println(data)
-
 	json.NewEncoder(w).Encode(data)
 
 }
