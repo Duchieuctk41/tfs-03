@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+// Mảng lưu phép toán và mảng số
+
 var operatorsArray = make([]string, 5)
 var numbersArray = make([]float64, 6)
 
@@ -28,6 +30,8 @@ func (e *ErrorString) Error() string {
 
 var errDiv string
 
+// Hàm tính cho nhân chia trước
+
 func calcMultiAndDivide() func() ([]string, []float64) {
 
 	return func() ([]string, []float64) {
@@ -45,6 +49,7 @@ func calcMultiAndDivide() func() ([]string, []float64) {
 					}
 				}
 				if s == "/" {
+					// Báo lỗi khi chia cho 0
 					if numbersArray[i+1] == 0 {
 						var err CatchError = &ErrorString{s: "Phép chia cho 0 thì Chịu, không tính được."}
 						errDiv = err.Error()
@@ -72,6 +77,8 @@ func calcMultiAndDivide() func() ([]string, []float64) {
 		return nil, nil
 	}
 }
+
+// Hàm tính cộng trừ sau
 
 func calcAddAndSub() func() ([]string, []float64) {
 	return func() ([]string, []float64) {
@@ -105,6 +112,8 @@ func calcAddAndSub() func() ([]string, []float64) {
 	}
 }
 
+// Enable cors
+
 func AddCorsHeader(res http.ResponseWriter) {
 	headers := res.Header()
 	headers.Set("Access-Control-Allow-Origin", "*")
@@ -119,15 +128,12 @@ func Calculator(w http.ResponseWriter, req *http.Request) {
 	}
 
 	var p Calc
-	// Try to decode the request body into the struct. If there is an error,
-	// respond to the client with the error message and a 400 status code.
 	err := json.NewDecoder(req.Body).Decode(&p)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	defer req.Body.Close()
 
 	operatorsArray = p.Operators
 	numbersArray = p.Numbers
@@ -139,7 +145,10 @@ func Calculator(w http.ResponseWriter, req *http.Request) {
 			var response = map[string]interface{}{
 				"msg": errDiv,
 			}
-			json.NewEncoder(w).Encode(response)
+			err := json.NewEncoder(w).Encode(response)
+			if err != nil {
+				return 
+			}
 			errDiv = ""
 			return
 		}
@@ -153,6 +162,9 @@ func Calculator(w http.ResponseWriter, req *http.Request) {
 	var data = map[string]interface{}{
 		"msg": numbersArray[0],
 	}
-	json.NewEncoder(w).Encode(data)
+	err = json.NewEncoder(w).Encode(data)
+	if err != nil {
+		return 
+	}
 
 }
