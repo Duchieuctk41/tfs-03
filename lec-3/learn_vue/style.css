@@ -1,22 +1,93 @@
-.product-image{
-  height: 200px;
-  width: 130px;
+#app {
+  max-width: 650px;
+  margin: 0 auto;
 }
-.product-image img {
-  height: 100%;
+
+.cart {
+  padding: 0 16px;
+  border: 1px solid #000;
+  width: 50px;
+  margin-bottom: 10px;
+  float: right;
+}
+
+.product-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.product-info {
+  margin-left: 32px;
+}
+
+h2 {
+  font-size: 36px;
+    margin: 0;
 }
 
 .color-box {
-  height: 40px;
-  width: 40px;
-  margin-bottom: 5px;
+  display: inline-block;
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+}
+
+.product-image img {
+  height: 250px;
+  width: 190px;
+  border: 1px solid #afafaf;
+}
+
+
+button {
+  margin-top: 16px;
+  display: block;
+  height: 50px;
+  width: 100px;
+  background-color: aquamarine;
+  border: none;
+  border-radius: 5px;
 }
 
 .disabledButton {
-  border: 1px dashed tomato;
+  height: 50px;
+  width: 100px;
+  background-color: rgb(236, 234, 234);
+}
+.product-tabs {
+  width: 200px;
+  margin-right: 30px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.activeTab {
+  color: red;
+}
+
+.product-item p {
+  font-size: 20px;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+ul li {
   padding: 5px;
 }
 
-.activeTab {
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input, form select {
+  margin: 10px 0;
+  padding: 8px;
+  width: auto;
+}
+
+form input:submit {
   color: red;
 }
