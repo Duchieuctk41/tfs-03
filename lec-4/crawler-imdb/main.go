@@ -1,11 +1,7 @@
 package main
 
-import (
-	// import local package
-	"./crawl"
-)
+import "./handle"
 
 func main() {
-	crawl.CrawlerFromIMDB()
-	crawl.Connect()
+	handle.Handle()
 }
