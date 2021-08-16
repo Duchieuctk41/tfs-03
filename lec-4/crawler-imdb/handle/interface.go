@@ -1,6 +1,6 @@
 package handle
 
-type myItem interface {
+type Movier interface {
 	key() int
 	name() string
 	year() string
@@ -23,6 +23,6 @@ func (i Movie) rating() string {
 	return i.Rating
 }
 
-type myInterface interface {
+type Databaser interface {
 	connectAndUpdateDB()
 }

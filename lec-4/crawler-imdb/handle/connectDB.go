@@ -1,8 +1,8 @@
 package handle
 
 import (
-	"fmt"
 	"database/sql"
+	"fmt"
 )
 
 func (listMovie *ListMovie) connectAndUpdateDB() {
@@ -19,13 +19,13 @@ func (listMovie *ListMovie) connectAndUpdateDB() {
 		panic(err.Error())
 	}
 
-	interfaces := make([]myItem, len(listMovie.Items))
+	interfaces := make([]Movier, len(listMovie.Items))
 
 	for k, v := range listMovie.Items {
-		interfaces[k] = interface{}(v).(myItem)
+		interfaces[k] = interface{}(v).(Movier)
 	}
 
-	for _,v := range listMovie.Items {
+	for _, v := range listMovie.Items {
 		res, err := insert.Exec(v.Name, v.Year, v.Rating)
 		if err != nil {
 			panic(err.Error())
@@ -42,7 +42,7 @@ func (listMovie *ListMovie) connectAndUpdateDB() {
 }
 
 // Println data
-// func PrintInterfaceSlice(list []myItem) {
+// func PrintInterfaceSlice(list []Movier) {
 // 	for _, v := range list {
 // 		fmt.Println(v.key(), v.name(), v.year(), v.rating())
 // 	}

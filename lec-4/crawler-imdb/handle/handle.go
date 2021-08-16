@@ -4,7 +4,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func addMovieToArray() myInterface {
+func addMovieToArray() Databaser {
 	items := []Movie{}
 	item := Movie{}
 	listMovie := ListMovie{items}
@@ -14,8 +14,9 @@ func addMovieToArray() myInterface {
 }
 
 func Handle() {
-	var callAddMovieToArray func() myInterface
-			callAddMovieToArray = addMovieToArray
-			callConnectAndUpdateDB := callAddMovieToArray()
-			callConnectAndUpdateDB.connectAndUpdateDB()
+	var callAddMovieToArray func() Databaser
+	callAddMovieToArray = addMovieToArray
+	
+	callConnectAndUpdateDB := callAddMovieToArray()
+	callConnectAndUpdateDB.connectAndUpdateDB()
 }
