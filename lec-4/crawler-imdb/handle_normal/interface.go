@@ -1,4 +1,4 @@
-package handle
+package handle_normal
 
 type Movier interface {
 	key() int

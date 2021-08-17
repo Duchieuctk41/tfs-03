@@ -1,13 +1,13 @@
-package handle
+package handle_normal
 
 import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func addMovieToArray() Databaser {
-	items := []Movie{}
+	movies := []Movie{}
 	item := Movie{}
-	listMovie := ListMovie{items}
+	listMovie := ListMovie{movies}
 
 	listMovie.CrawlerData(item)
 	return &listMovie
@@ -16,7 +16,7 @@ func addMovieToArray() Databaser {
 func Handle() {
 	var callAddMovieToArray func() Databaser
 	callAddMovieToArray = addMovieToArray
-	
+
 	callConnectAndUpdateDB := callAddMovieToArray()
 	callConnectAndUpdateDB.connectAndUpdateDB()
 }

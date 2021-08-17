@@ -1,4 +1,4 @@
-package handle
+package handle_normal
 
 import (
 	"fmt"
@@ -9,11 +9,11 @@ func (listMovie *ListMovie) CrawlerData(item Movie) []Movie {
 	c := colly.NewCollector()
 	c.OnHTML(".lister-list", func(tf *colly.HTMLElement) {
 		tf.ForEach("tr", func(_ int, e *colly.HTMLElement) {
-			item.Key = len(listMovie.Items)
+			item.Key = len(listMovie.Movies)
 			item.Name = e.ChildText(".titleColumn > a")
 			item.Year = e.ChildText(".titleColumn > .secondaryInfo")
 			item.Rating = e.ChildText(".imdbRating > strong")
-			listMovie.Items = append(listMovie.Items, item)
+			listMovie.Movies = append(listMovie.Movies, item)
 		})
 	})
 
@@ -23,5 +23,5 @@ func (listMovie *ListMovie) CrawlerData(item Movie) []Movie {
 
 	c.Visit("https://www.imdb.com/chart/top/?ref_=nv_mv_250")
 
-	return listMovie.Items
+	return listMovie.Movies
 }

@@ -1,4 +1,4 @@
-package handle
+package handle_normal
 
 import (
 	"database/sql"
@@ -19,13 +19,13 @@ func (listMovie *ListMovie) connectAndUpdateDB() {
 		panic(err.Error())
 	}
 
-	interfaces := make([]Movier, len(listMovie.Items))
+	interfaces := make([]Movier, len(listMovie.Movies))
 
-	for k, v := range listMovie.Items {
+	for k, v := range listMovie.Movies {
 		interfaces[k] = interface{}(v).(Movier)
 	}
 
-	for _, v := range listMovie.Items {
+	for _, v := range listMovie.Movies {
 		res, err := insert.Exec(v.Name, v.Year, v.Rating)
 		if err != nil {
 			panic(err.Error())

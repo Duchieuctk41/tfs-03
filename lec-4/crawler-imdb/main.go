@@ -1,7 +1,7 @@
 package main
 
-import "./handle"
+import "./handle_normal"
 
 func main() {
-	handle.Handle()
+	handle_normal.Handle()
 }
