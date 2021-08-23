@@ -7,6 +7,7 @@ import (
 	"../controllers"
 	"../middlewares"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 func Init() {
@@ -25,5 +26,11 @@ func Init() {
 	router.HandleFunc("/api/products/{id}", controllers.UpdateProduct).Methods("PUT")
 	router.HandleFunc("/api/products/{id}", controllers.DeleteProduct).Methods("DELETE")
 
-	log.Fatal(http.ListenAndServe(":3000", router))
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:5000"},
+		AllowCredentials: true,
+	})
+	handler := c.Handler(router)
+
+	log.Fatal(http.ListenAndServe(":3000", handler))
 }
