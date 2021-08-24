@@ -6,10 +6,19 @@
 
 # Directory's tree
 ```
-├── drop.js
-├── palindrome.js
+├── package.json
+├── package-lock.json
 ├── README.md
-├── seekAndDestroy.js
-├── toSpinalCase.js
-└── uniqueUnion.js
+├── tests
+│   ├── drop.test.js
+│   ├── palindrome.test.js
+│   ├── seekAndDestroy.test.js
+│   ├── toSpinalCase.test.js
+│   └── uniqueUnion.test.js
+└── utils
+    ├── drop.js
+    ├── palindrome.js
+    ├── seekAndDestroy.js
+    ├── toSpinalCase.js
+    └── uniqueUnion.js
 ```

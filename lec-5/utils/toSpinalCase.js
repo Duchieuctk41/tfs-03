@@ -6,8 +6,10 @@ const toSpinalCase = (str) => {
   let spinalStr = str.replace(regex1, ' $1')
   .replace(regex2, '-').toLowerCase()
 
-  console.log(spinalStr)
+  // console.log(spinalStr)
   return spinalStr
 }
 
-toSpinalCase('My   ^Name_IsHieu')
+// toSpinalCase('My   ^Name_IsHieu')
+
+module.exports = toSpinalCase
