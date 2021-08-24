@@ -5,4 +5,6 @@ const uniqueUnion = (...arrs) => {
   return uniArr
 }
 
-uniqueUnion([1,2,3], [2,3,4])
+// uniqueUnion([1,2,3], [2,3,4])
+
+module.exports = uniqueUnion

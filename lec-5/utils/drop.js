@@ -5,6 +5,7 @@ const drop = (arr, func) => {
   return []
 }
 
-let result = drop([1,2,3,4,5], n => n >= 2)
+// let result = drop([1,2,3,4,5], n => n >= 2)
+// console.log(result)
 
-console.log(result)
+module.exports = drop

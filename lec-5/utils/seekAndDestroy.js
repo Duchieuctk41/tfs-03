@@ -4,4 +4,6 @@ const seekAndDestroy = (arr, ...args) => {
   return newArr
 }
 
-seekAndDestroy([1, 2, 3, 5, 1, 2, 3], 2, 3) // [1, 5, 1]
+// seekAndDestroy([1, 2, 3, 5, 1, 2, 3], 2, 3) // [1, 5, 1]
+
+module.exports = seekAndDestroy

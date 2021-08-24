@@ -7,4 +7,6 @@ const isPalindrome = (strInput) => {
   return strInput === strReverse
 }
 
-isPalindrome('1 ^^^0.1')
+// isPalindrome('1 ^^^0.1')
+
+module.exports = isPalindrome
