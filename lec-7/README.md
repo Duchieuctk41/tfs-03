@@ -1,3 +1,9 @@
+# Repository's info
+
+|     Fullname    |    Class     |
+|-----------------|--------------|
+| Nguyen Duc Hieu |   TFS - 03   |
+
 # [Link Demo - Heroku](https://calcgo.herokuapp.com/)
 
 ![Ảnh minh họa](https://res.cloudinary.com/duchieu/image/upload/v1628407362/test/ncv6flge2h1g1rsryxwe.png)

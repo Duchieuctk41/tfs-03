@@ -1,3 +1,9 @@
+# Repository's info
+
+|     Fullname    |    Class     |
+|-----------------|--------------|
+| Nguyen Duc Hieu |   TFS - 03   |
+
 ### Directory's tree
 ```
 ├── code_fl_example
