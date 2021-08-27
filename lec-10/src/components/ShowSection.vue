@@ -4,29 +4,35 @@
       <div class="DesignPreview_Preview">
         <button>
           <img
-            src="@/assets/desktop.jpg"
+            :src="require(`@/assets/${imgURL}`)"
             alt="Desktop design for order summary"
           />
         </button>
       </div>
       <ul>
-        <div class="DesignPreview__PreviewTab">Desktop design</div>
-        <div class="DesignPreview__PreviewTab">Mobile design</div>
+        <li
+          class="DesignPreview__PreviewTab"
+          v-for="val in getState.image"
+          :key="val.name"
+        >
+          <button @click="setImage(val.img)">{{ val.name }}</button>
+        </li>
       </ul>
     </div>
     <div class="ChallengeDetails__Wrapper">
       <div class="ChallengeDetails__Tags">
-        <span class="ChallengeDetails__PriceTag">Free</span>
+        <span class="ChallengeDetails__PriceTag">{{ getState.price }}</span>
         <ul class="Languages__List">
-          <li class="Languages__Item">HTML</li>
-          <li class="Languages__Item">CSS</li>
+          <li v-for="lang in getState.lang" :key="lang" class="Languages__Item">
+            {{ lang }}
+          </li>
         </ul>
         <div class="Level_Wrapper">
-          <span class="Level__Number">1</span>
-          <span class="Level_Name">Newbie</span>
+          <span class="Level__Number">{{ getState.level.number }}</span>
+          <span class="Level_Name">{{ getState.level.name }}</span>
         </div>
       </div>
-      <h2 class="Heading_StyleH1">Order summary component</h2>
+      <h2 class="Heading_StyleH1">{{ getState.title }}</h2>
       <p class="ChallengeDetails__Description">
         A perfect project for newbies who are starting to build confidence with
         layouts!
@@ -34,24 +40,18 @@
       <div class="ChallengeDetails__Assets">
         <h2 class="Heading__StyleH2">ASSETS PROVIDED</h2>
         <ul class="ChallengeDetails__List">
-          <li class="ChallengeDetails__ListItem">
+          <!-- <li class="ChallengeDetails__ListItem">
             Sketch and Figma design file access -
             <a href="#">
               Unlock access with <span class="uppercased">PRO</span></a
             >
-          </li>
-          <li class="ChallengeDetails__ListItem">
-            JPEG design files for mobile va desktop layouts
-          </li>
-          <li class="ChallengeDetails__ListItem">
-            Style guide for fonts, colors, etc
-          </li>
-          <li class="ChallengeDetails__ListItem">Optimized image assets</li>
-          <li class="ChallengeDetails__ListItem">
-            README file to help you get started
-          </li>
-          <li class="ChallengeDetails__ListItem">
-            HTML file with pre-written content
+          </li> -->
+          <li
+            v-for="val in getState.asset"
+            :key="val.id"
+            class="ChallengeDetails__ListItem"
+          >
+            {{ val.name }}
           </li>
         </ul>
       </div>
@@ -67,8 +67,20 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "ShowSection",
+  data() {
+    return {
+      imgURL: "desktop.jpg",
+    };
+  },
+  computed: mapGetters({ getState: "allContent" }),
+  methods: {
+    setImage(img) {
+      return this.imgURL = img
+    }
+  }
 };
 </script>
 
@@ -118,9 +130,6 @@ export default {
         .Languages__Item {
           display: inline-block;
         }
-      }
-
-      .Level_Wrapper {
       }
     }
     .Heading_StyleH1 {

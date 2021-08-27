@@ -3,75 +3,13 @@
     <div class="container">
       <h2 class="Heading_StyleH2">Challenge FAQS</h2>
       <div class="FAQ__Question">
-        <details class="Question__Details">
+        <details class="Question__Details" v-for="val in getState.faq" :key="getState.faq[val]">
           <summary class="Question__Summary">
-            Can I use libraries/frameworks on these projects?
+            {{val.sum}}
           </summary>
           <div class="Question__Answer">
             <div class="Spaser__Answer">
-              Yes! Our challenges provide professional designs but there are no
-              rules on what tools to use. So feel free to use anything you like
-              to build your projects.
-            </div>
-          </div>
-        </details>
-        <details class="Question__Details">
-          <summary class="Question__Summary">
-            Can I use libraries/frameworks on these projects?
-          </summary>
-          <div class="Question__Answer">
-            <div class="Spaser__Answer">
-              Yes! Our challenges provide professional designs but there are no
-              rules on what tools to use. So feel free to use anything you like
-              to build your projects.
-            </div>
-          </div>
-        </details>
-        <details class="Question__Details">
-          <summary class="Question__Summary">
-            Can I use libraries/frameworks on these projects?
-          </summary>
-          <div class="Question__Answer">
-            <div class="Spaser__Answer">
-              Yes! Our challenges provide professional designs but there are no
-              rules on what tools to use. So feel free to use anything you like
-              to build your projects.
-            </div>
-          </div>
-        </details>
-        <details class="Question__Details">
-          <summary class="Question__Summary">
-            Can I use libraries/frameworks on these projects?
-          </summary>
-          <div class="Question__Answer">
-            <div class="Spaser__Answer">
-              Yes! Our challenges provide professional designs but there are no
-              rules on what tools to use. So feel free to use anything you like
-              to build your projects.
-            </div>
-          </div>
-        </details>
-        <details class="Question__Details">
-          <summary class="Question__Summary">
-            Can I use libraries/frameworks on these projects?
-          </summary>
-          <div class="Question__Answer">
-            <div class="Spaser__Answer">
-              Yes! Our challenges provide professional designs but there are no
-              rules on what tools to use. So feel free to use anything you like
-              to build your projects.
-            </div>
-          </div>
-        </details>
-        <details class="Question__Details">
-          <summary class="Question__Summary">
-            Can I use libraries/frameworks on these projects?
-          </summary>
-          <div class="Question__Answer">
-            <div class="Spaser__Answer">
-              Yes! Our challenges provide professional designs but there are no
-              rules on what tools to use. So feel free to use anything you like
-              to build your projects.
+              {{val.desc}}
             </div>
           </div>
         </details>
@@ -80,8 +18,10 @@
   </section>
 </template>
 <script>
+import {mapGetters} from "vuex";
 export default {
   name: "FAQSection",
+  computed: mapGetters({getState: "allContent"})
 };
 </script>
 
@@ -125,8 +65,7 @@ export default {
           font-weight: 400;
           font-size: 1.5rem;
           line-height: 1.6;
-          .Spaser__Answer {
-          }
+         
         }
       }
     }
