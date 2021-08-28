@@ -17,7 +17,9 @@
         >
           <button @click="setImage(val.img)">{{ val.name }}</button>
         </li>
+        <li class="DesignPreview__PreviewTab"><button @click="toggleModal">Demo</button></li>
       </ul>
+      <Modal/>
     </div>
     <div class="ChallengeDetails__Wrapper">
       <div class="ChallengeDetails__Tags">
@@ -68,8 +70,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Modal from "@/components/modal/Modal.vue";
 export default {
   name: "ShowSection",
+  components: {
+    Modal,
+  },
   data() {
     return {
       imgURL: "desktop.jpg",
@@ -79,6 +85,9 @@ export default {
   methods: {
     setImage(img) {
       return this.imgURL = img
+    },
+    toggleModal() {
+
     }
   }
 };
