@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import challenge from "./modules/challenge";
+import modal from "./modules/modal";
 
 export default createStore({
   state: {},
@@ -7,5 +8,6 @@ export default createStore({
   actions: {},
   modules: {
     challenge,
+    modal,
   },
 });
