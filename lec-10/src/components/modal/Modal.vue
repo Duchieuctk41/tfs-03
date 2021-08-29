@@ -1,6 +1,7 @@
 <template>
-  <div class="Modal__Demo">
-    <div class="Demo__Wrapper">
+  <div class="Modal__Demo" @click="$emit('closeModal')">
+    <button>close</button>
+    <div class="Demo__Wrapper" @click.stop="stopCloseModal(event)">
       <header class="Demo__Illustrate">
         <img src="@/assets/illustration-hero.svg" alt="illustrate_image" />
       </header>
@@ -26,6 +27,11 @@ export default {
     Options,
     Checkout,
   },
+  methods: {
+    stopCloseModal(event) {
+      event.stopPropagation();
+    },
+  },
 };
 </script>
 
@@ -49,7 +55,7 @@ export default {
     transform: translate(-50%, -50%);
     border-radius: 1.6rem;
     overflow: hidden;
-        background: #fff;
+    background: #fff;
 
     .Demo__Illustrate {
       img {

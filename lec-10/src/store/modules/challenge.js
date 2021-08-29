@@ -1,5 +1,5 @@
 const state = {
-  title: "Order summary component",
+  title: "Here! Test custom directive",
   description:
     "A perfect project for newbies who are starting to build confidence with layouts!",
   lang: ["HTML", "CSS"],
