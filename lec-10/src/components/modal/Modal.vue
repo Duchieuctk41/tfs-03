@@ -21,7 +21,7 @@ import Intro from "@/components/modal/Intro.vue";
 import Options from "@/components/modal/Options.vue";
 import Checkout from "@/components/modal/Checkout.vue";
 export default {
-  name: "Modal",
+  name: "modalDemo",
   components: {
     Intro,
     Options,

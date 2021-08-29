@@ -17,11 +17,17 @@
         >
           <button @click="setImage(val.img)">{{ val.name }}</button>
         </li>
-        <li class="DesignPreview__PreviewTab"><button @click="toggleModal">Demo</button></li>
-        <li class="DesignPreview__PreviewTab"><input type="file" :style="{display:none}" ref="inputRef"></li>
-        <li class="DesignPreview__PreviewTab"><button @click="inputFileHandle">Test Refs with input file</button></li>
+        <li class="DesignPreview__PreviewTab">
+          <button @click="toggleModal">Demo</button>
+        </li>
+        <li class="DesignPreview__PreviewTab">
+          <input type="file" :style="{ display: none }" ref="inputRef" />
+        </li>
+        <li class="DesignPreview__PreviewTab">
+          <button @click="inputFileHandle">Test Refs with input file</button>
+        </li>
       </ul>
-      <Modal v-if="turnOnModal" @close-modal="toggleModal"/>
+      <modal-demo v-if="turnOnModal" @close-modal="toggleModal"/>
     </div>
     <div class="ChallengeDetails__Wrapper">
       <div class="ChallengeDetails__Tags">
@@ -64,7 +70,9 @@
           <div>icon</div>
           <span>It looks like you've already started this challenge.</span>
         </div>
-        <a @click="visitChallenHub" class="CTA__StyledLink">Visit challenge hub</a>
+        <a @click="visitChallenHub" class="CTA__StyledLink"
+          >Visit challenge hub</a
+        >
       </div>
     </div>
   </section>
@@ -72,15 +80,15 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import Modal from "@/components/modal/Modal.vue";
 import { visitMixin } from "@/mixins/visitMixin";
-import { defineAsyncComponent } from "vue";
+// import { defineAsyncComponent } from "vue";
 export default {
   name: "ShowSection",
   mixins: [visitMixin],
   components: {
-     Modal: defineAsyncComponent(() =>
-            import(`@/components/modal/Modal.vue`)) //unable to access props
+    //  modalDemo: defineAsyncComponent(() =>
+    //         import(`@/components/modal/Modal.vue`)),
+    modalDemo: () => import("@/components/modal/Modal.vue")
   },
   data() {
     return {
@@ -91,21 +99,21 @@ export default {
   },
   computed: mapGetters({ getState: "allContent" }),
   directives: {
-    orange: function(el) {
-      el.style.backgroundColor = "orange"
-    }
+    orange: function (el) {
+      el.style.backgroundColor = "orange";
+    },
   },
   methods: {
     setImage(img) {
-      return this.imgURL = img
+      return (this.imgURL = img);
     },
-    toggleModal() { 
-      return this.turnOnModal = !this.turnOnModal
+    toggleModal() {
+      return (this.turnOnModal = !this.turnOnModal);
     },
     inputFileHandle() {
-      this.$refs.inputRef.click()
-    }
-  }
+      this.$refs.inputRef.click();
+    },
+  },
 };
 </script>
 
