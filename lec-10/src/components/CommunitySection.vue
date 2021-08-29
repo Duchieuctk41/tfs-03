@@ -15,9 +15,10 @@
               community
             </label>
             <input
+              @focus="$event.target.select()"
               id="slack-email"
               type="text"
-              placeholder="example@gmail.com"
+              placeholder="test custom directive"
             />
           </div>
           <button class="CTA__StyledLink CommunityForm__Button">

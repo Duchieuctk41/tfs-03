@@ -26,7 +26,7 @@ const actions = {
   },
   deleteNotif({ commit }, id) {
     commit("DELETE_NOTIF", id);
-  },
+  }
 };
 
 const mutations = {
@@ -40,7 +40,7 @@ const mutations = {
   DELETE_NOTIF: (state, id) => {
     let tmp = state.notif.filter(val => val.id !== id)
     state.notif = [...tmp]
-  },
+  }
 };
 
 export default {

@@ -46,14 +46,16 @@
         </ul>
       </div>
     </div>
-    <a href="#" class="CTA__StyledLink">Visit challenge hub</a>
+    <a @click="visitChallenHub" class="CTA__StyledLink">Visit challenge hub</a>
   </section>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import {visitMixin} from "@/mixins/visitMixin";
 export default {
   name: "BriefSection",
+  mixins: [visitMixin],
   computed: mapGetters({ getState: "allContent" }),
 };
 </script>
