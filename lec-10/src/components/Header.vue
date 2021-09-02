@@ -54,7 +54,7 @@ export default {
           }
         }
         .Notification {
-          margin: 0 1.5rem
+          margin: 0 1.5rem;
         }
       }
     }
