@@ -16,18 +16,17 @@ var (
 
 func main() {
 	var err error
-	db, err = sql.Open("mysql", "root:password@tcp(localhost:3306)/paypay")
+	db, err = sql.Open("mysql", "root:password@tcp(localhost:3306)/paypay?parseTime=true")
 	if err != nil {
 		panic(err.Error())
 	}
 
 	defer db.Close()
-
-	transfer("user_A", "user_B", 333)
+	transfer("user_A", "user_B", 200)
 }
 
 func transfer(userA string, userB string, amount float32) {
-	// func (db *DB) Begin() (*Tx, error)
+	// func (db * DB) Begin() (*Tx, error)
 	tx, err := db.Begin()
 	if err != nil {
 		log.Fatal(err)
@@ -38,20 +37,19 @@ func transfer(userA string, userB string, amount float32) {
 		total_receive float32
 	)
 
-	// func (tx *Tx) QueryRow(query string, args ... interface{}) * Row
+	// func (tx *Tx) QueryRow(query string, args ... interface{}) *Row
 	row := tx.QueryRow(`SELECT total FROM send WHERE user_id = ?`, userA)
 	err = row.Scan(&total_send)
 	if err != nil {
-		// func (tx *Tx) Rollback() error
 		_ = tx.Rollback()
 		fmt.Println("err: ", err)
 		return
 	}
 
+	// func (tx *Tx) QueryRow(query string, args ... interface{}) *Row
 	row = tx.QueryRow(`SELECT total FROM receive WHERE user_id = ?`, userB)
 	err = row.Scan(&total_receive)
 	if err != nil {
-		// func (tx *Tx) Rollback() error
 		_ = tx.Rollback()
 		fmt.Println("err: ", err)
 		return
@@ -63,25 +61,23 @@ func transfer(userA string, userB string, amount float32) {
 	fmt.Println("attempting to set total_receive: ", total_receive, " total_send: ", total_send)
 
 	var result sql.Result
-	// func (tx *Tx) Exec(query string, args ...interface{}) (Result, error)
+	// func (tx *Tx) Exec(query string, args ... interface{}) (Result, error)
 	result, execErr := tx.Exec(`UPDATE send SET total = ? WHERE user_id = ?`, total_send, userA)
 	rowsAffected, _ := result.RowsAffected()
 
-	fmt.Println("update send execErr:", execErr, "rowsAffected:", rowsAffected)
-
-	if execErr != nil || rowsAffected != 1 {
-		//  func (tx *Tx) Rollback() error
+	fmt.Println("update send execErr: ", execErr, " rowsAffected: ", rowsAffected)
+	if execErr != nil {
+		// func (tx *Tx) Rollback() error
 		_ = tx.Rollback()
 		return
 	}
 
-	// func (tx *Tx) Exec(query string, args ...interface{}) (Result, error)
+	// func (tx *Tx) Exec(query string, args ... interface{}) (Result, error)
 	result, execErr = tx.Exec(`UPDATE receive SET total = ? WHERE user_id = ?`, total_receive, userB)
 	rowsAffected, _ = result.RowsAffected()
 
-	fmt.Println("update receive execErr:", execErr, "rowsAffected:", rowsAffected)
-
-	if execErr != nil || rowsAffected != 1 {
+	fmt.Println("update receive execErr: ", execErr, " rowsAffected: ", rowsAffected)
+	if execErr != nil {
 		// func (tx *Tx) Rollback() error
 		_ = tx.Rollback()
 		return
