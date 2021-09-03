@@ -66,7 +66,7 @@ func GetTeachers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(allTeachers)
 }
 
-func GetTeacher(w http.ResponseWriter, r *http.Request) {
+func GetTeacherById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -105,17 +105,6 @@ func UpdateTeacher(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "updated teacher have id: %v", teacher.Id)
 }
 
-func DeleteTeacher(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, _ := strconv.Atoi(vars["id"])
-
-	teacher := Teacher{
-		Id: id,
-	}
-	database.DB.Delete(&teacher)
-	fmt.Fprintf(w, "deleted teacher have have id: %v", id)
-}
-
 func SetStatusTeacher(w http.ResponseWriter, r *http.Request) {
 
 	var status Status
@@ -136,3 +125,15 @@ func SetStatusTeacher(w http.ResponseWriter, r *http.Request) {
 	database.DB.Model(&teacher).Update("status", status.Status)
 	fmt.Fprintf(w, "set status teacher have id: %v completed", id)
 }
+
+func DeleteTeacher(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
+
+	teacher := Teacher{
+		Id: id,
+	}
+	database.DB.Delete(&teacher)
+	fmt.Fprintf(w, "deleted teacher have have id: %v", id)
+}
+
