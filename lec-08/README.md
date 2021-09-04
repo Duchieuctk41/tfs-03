@@ -22,10 +22,22 @@
 ### directory's tree
 
 ```
+├── class_diagram.png
+├── es
+│   ├── csv
+│   │   └── train.csv
+│   ├── docker-compose.yml
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
 ├── learn_transaction
 │   ├── transaction_gorm.go
 │   ├── transaction_manual.go
 │   └── transfer.sql
+├── mysql
+│   ├── csv
+│   │   └── train.csv
+│   └── main.go
 ├── people
 │   ├── controllers
 │   │   ├── calendarContro.go
@@ -36,6 +48,7 @@
 │   ├── database
 │   │   └── connectDB.go
 │   ├── main.go
+│   ├── people.sql
 │   └── routes
 │       └── routes.go
 ├── people.png
