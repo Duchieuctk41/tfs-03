@@ -41,10 +41,10 @@ func Init() {
 
 	// calendar
 	router.HandleFunc("/api/calendars", controllers.CreateCalendar).Methods("POST")
-	// router.HandleFunc("/api/calendars/class/{class_id}", controllers.GetCalendarByClass).Methods("GET")
-	// router.HandleFunc("/api/calendars/teacher/{teacher_id}", controllers.GetCalendarByTeacher).Methods("GET")
-	// router.HandleFunc("/api/calendars/{id}", controllers.UpdateStudent).Methods("PUT")
-	// router.HandleFunc("/api/calendars/{id}", controllers.DeleteStudent).Methods("DELETE")
+	router.HandleFunc("/api/calendars/class/{class_id}", controllers.GetCalendarByClass).Methods("GET")
+	router.HandleFunc("/api/calendars/teacher/{teacher_id}", controllers.GetCalendarByTeacher).Methods("GET")
+	router.HandleFunc("/api/calendars/{id}", controllers.UpdateCalendar).Methods("PUT")
+	router.HandleFunc("/api/calendars/{id}", controllers.DeleteCalendar).Methods("DELETE")
 
 	fmt.Println("server listening in http://localhost:3000")
 	log.Fatal(http.ListenAndServe(":3000", router))
