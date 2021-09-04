@@ -26,10 +26,10 @@ func main() {
 		panic(err.Error())
 	}
 	db.SetConnMaxLifetime(time.Minute * 3)
-	db.SetMaxOpenConns(10)
-	db.SetMaxIdleConns(10)
+	db.SetMaxOpenConns(1200)
 	defer db.Close()
 
+	time_start := time.Now()
 	ch := make(chan Review)
 	var wg sync.WaitGroup
 
@@ -37,7 +37,10 @@ func main() {
 	go GetReview(&wg, ch)
 	go SetReview(db, &wg, ch)
 	wg.Wait()
+	time_end := time.Now()
+	log.Println(time_end.Sub(time_start))
 
+	Search(db)
 	log.Println("success")
 }
 
@@ -50,7 +53,7 @@ func GetReview(wg *sync.WaitGroup, ch chan Review) {
 	}
 	defer file.Close()
 	r := csv.NewReader(file)
-	for i := 0; i < 3; i++ {
+	for {
 		record, err := r.Read()
 		if err == io.EOF {
 			break
@@ -80,6 +83,21 @@ func SetReview(db *sql.DB, wg *sync.WaitGroup, ch chan Review) {
 		if err != nil {
 			panic(err.Error())
 		}
-		defer insert.Close()
+		insert.Close()
 	}
+}
+
+func Search(db *sql.DB) {
+	time_start := time.Now()
+	str := "It does sort of sway a little bit when you push the clothes to make more room, but because the pieces are screwed together I think it's fine and doesn't seem like it will topple over. For my purposes, it works just fine and fits nicely beside the washer without taking up too much room. Definitely has saved me from doing the trip up the stairs with an armful of wet"
+	var review Review
+
+	err := db.QueryRow("SELECT vote, title, content FROM reviews WHERE content LIKE ?", "%"+str+"%").Scan(&review.Vote, &review.Title, &review.Content)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	time_end := time.Now()
+	log.Println(time_end.Sub(time_start))
+	log.Println(review)
 }

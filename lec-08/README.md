@@ -1,3 +1,15 @@
+# So sánh tốc độ mysql với elasticsearch
+| Số row | MySQL |  ES  |
+| ------ |  ----- | ----- |
+| 150 | 2.399505ms | 22.300538ms es |
+| 150 | 2.33152ms | 18.06978ms |
+| 1 triệu 048 nghìn 576 | 5.962471045s | 29.943037ms |
+| 1 triệu 048 nghìn 576 | 6.90573595s | 45.033811ms |
+
+- Mới một số tìm kiếm bị thiếu từ, ES vẫn trả về đúng kết quả, còn MySQL không thể tìm thấy
+- Ngoài ra thời gian insert Mysql cũng khá lâu (~ 30phút) còn với ES chỉ mất 3m30.924384323s
+
+
 # Repository's info
 
 |     Fullname    |    Class     |
