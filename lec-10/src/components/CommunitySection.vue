@@ -10,15 +10,14 @@
       <div>
         <form action="" class="CommunityForm__Form">
           <div class="CommunityForm__InputWrapper">
-            <label for="slack-email" class="sr-only"
-              >Please enter your email address to sign up for the flack
-              community
+            <label for="slack-email" class="sr-only">
+              Please enter your email address to sign up for the flack community
             </label>
             <input
-              @focus="$event.target.select()"
               id="slack-email"
               type="text"
               placeholder="test custom directive"
+              @focus="$event.target.select()"
             />
           </div>
           <button class="CTA__StyledLink CommunityForm__Button">
@@ -32,8 +31,8 @@
 
 <script>
 export default {
-  name: "CommunitySection",
-};
+  name: 'CommunitySection',
+}
 </script>
 
 <style lang="scss" scoped>

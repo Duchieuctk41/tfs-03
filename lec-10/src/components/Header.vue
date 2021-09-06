@@ -1,14 +1,17 @@
 <template>
   <header class="Header__Wrapper">
     <div class="Header__Content">
-      <a href="#" class="Header__Logo"
-        ><img src="@/assets/logo-desktop.svg" alt="logo here"
-      /></a>
+      <a href="#" class="Header__Logo">
+        <img src="@/assets/logo-desktop.svg" alt="logo here" />
+      </a>
       <div class="Header__Nav">
         <nav>
           <ul class="MainMenu__List">
             <li class="MainMenu__Item">
-              <a href="#">Unlock <span>pro</span> </a>
+              <a href="#">
+                Unlock
+                <span>pro</span>
+              </a>
             </li>
             <li class="MainMenu__Item"><a href="#">Challenges</a></li>
             <li class="MainMenu__Item"><a href="#">Solutions</a></li>
@@ -24,8 +27,8 @@
 
 <script>
 export default {
-  name: "Header",
-};
+  name: 'Header',
+}
 </script>
 
 <style lang="scss" scoped>

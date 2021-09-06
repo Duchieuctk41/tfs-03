@@ -11,9 +11,9 @@
       </div>
       <ul>
         <li
-          class="DesignPreview__PreviewTab"
           v-for="val in getState.image"
           :key="val.name"
+          class="DesignPreview__PreviewTab"
         >
           <button @click="setImage(val.img)">{{ val.name }}</button>
         </li>
@@ -21,13 +21,13 @@
           <button @click="toggleModal">Demo</button>
         </li>
         <li class="DesignPreview__PreviewTab">
-          <input type="file" :style="{ display: none }" ref="inputRef" />
+          <input ref="inputRef" type="file" :style="{ display: none }" />
         </li>
         <li class="DesignPreview__PreviewTab">
           <button @click="inputFileHandle">Test Refs with input file</button>
         </li>
       </ul>
-      <modal-demo v-if="turnOnModal" @close-modal="toggleModal"/>
+      <ModalDemo v-if="turnOnModal" @close-modal="toggleModal" />
     </div>
     <div class="ChallengeDetails__Wrapper">
       <div class="ChallengeDetails__Tags">
@@ -42,7 +42,7 @@
           <span class="Level_Name">{{ getState.level.name }}</span>
         </div>
       </div>
-      <h2 class="Heading_StyleH1" v-orange>{{ getState.title }}</h2>
+      <h2 v-orange class="Heading_StyleH1">{{ getState.title }}</h2>
       <p class="ChallengeDetails__Description">
         A perfect project for newbies who are starting to build confidence with
         layouts!
@@ -70,51 +70,52 @@
           <div>icon</div>
           <span>It looks like you've already started this challenge.</span>
         </div>
-        <a @click="visitChallenHub" class="CTA__StyledLink"
-          >Visit challenge hub</a
-        >
+        <a class="CTA__StyledLink" @click="visitChallenHub">
+          Visit challenge hub
+        </a>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { visitMixin } from "@/mixins/visitMixin";
-// import { defineAsyncComponent } from "vue";
+import { mapGetters } from 'vuex'
+import { visitMixin } from '@/mixins/visitMixin'
+import { defineAsyncComponent } from 'vue'
 export default {
-  name: "ShowSection",
-  mixins: [visitMixin],
-  components: {
-    //  modalDemo: defineAsyncComponent(() =>
-    //         import(`@/components/modal/Modal.vue`)),
-    modalDemo: () => import("@/components/modal/Modal.vue")
-  },
-  data() {
-    return {
-      imgURL: "desktop.jpg",
-      none: "none",
-      turnOnModal: false,
-    };
-  },
-  computed: mapGetters({ getState: "allContent" }),
+  name: 'ShowSection',
   directives: {
     orange: function (el) {
-      el.style.backgroundColor = "orange";
+      el.style.backgroundColor = 'orange'
     },
   },
+  components: {
+    ModalDemo: defineAsyncComponent(() =>
+      import(`@/components/modal/Modal.vue`),
+    ),
+  },
+  mixins: [visitMixin],
+  data() {
+    return {
+      imgURL: 'desktop.jpg',
+      none: 'none',
+      turnOnModal: true,
+    }
+  },
+  computed: mapGetters({ getState: 'allContent' }),
+
   methods: {
     setImage(img) {
-      return (this.imgURL = img);
+      return (this.imgURL = img)
     },
     toggleModal() {
-      return (this.turnOnModal = !this.turnOnModal);
+      return (this.turnOnModal = !this.turnOnModal)
     },
     inputFileHandle() {
-      this.$refs.inputRef.click();
+      this.$refs.inputRef.click()
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

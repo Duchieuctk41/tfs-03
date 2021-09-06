@@ -41,9 +41,18 @@
         <span>© Frontend Mentor 2021</span>
         <ul class="Footer__List">
           <li><a href="">Terms</a></li>
-          <li><a href=""></a>Cookie Policy</li>
-          <li><a href=""></a>Private Policy</li>
-          <li><a href=""></a>License</li>
+          <li>
+            <a href=""></a>
+            Cookie Policy
+          </li>
+          <li>
+            <a href=""></a>
+            Private Policy
+          </li>
+          <li>
+            <a href=""></a>
+            License
+          </li>
         </ul>
       </div>
     </div>
@@ -52,8 +61,8 @@
 
 <script>
 export default {
-  name: "Footer",
-};
+  name: 'Footer',
+}
 </script>
 
 <style lang="scss" scoped>
@@ -112,8 +121,8 @@ export default {
       justify-content: space-between;
       ul {
         li {
-              margin-left: 3rem;
-              display: inline-block;
+          margin-left: 3rem;
+          display: inline-block;
         }
       }
     }

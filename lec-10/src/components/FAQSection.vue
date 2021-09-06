@@ -3,13 +3,17 @@
     <div class="container">
       <h2 class="Heading_StyleH2">Challenge FAQS</h2>
       <div class="FAQ__Question">
-        <details class="Question__Details" v-for="val in getState.faq" :key="getState.faq[val]">
+        <details
+          v-for="val in getState.faq"
+          :key="getState.faq[val]"
+          class="Question__Details"
+        >
           <summary class="Question__Summary">
-            {{val.sum}}
+            {{ val.sum }}
           </summary>
           <div class="Question__Answer">
             <div class="Spaser__Answer">
-              {{val.desc}}
+              {{ val.desc }}
             </div>
           </div>
         </details>
@@ -18,11 +22,11 @@
   </section>
 </template>
 <script>
-import {mapGetters} from "vuex";
+import { mapGetters } from 'vuex'
 export default {
-  name: "FAQSection",
-  computed: mapGetters({getState: "allContent"})
-};
+  name: 'FAQSection',
+  computed: mapGetters({ getState: 'allContent' }),
+}
 </script>
 
 <style lang="scss" scoped>
@@ -65,7 +69,6 @@ export default {
           font-weight: 400;
           font-size: 1.5rem;
           line-height: 1.6;
-         
         }
       }
     }

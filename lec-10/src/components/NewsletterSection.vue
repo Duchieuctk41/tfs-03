@@ -11,13 +11,13 @@
           <form action="" class="NewsletterForm__Form">
             <div class="NewsletterForm__Checkbox">
               <input type="text" class="sr-only" />
-              <label for=""
-                >I am happy for Frontend Mentor to contact me by email</label
-              >
+              <label for="">
+                I am happy for Frontend Mentor to contact me by email
+              </label>
             </div>
             <div class="NewsletterForm__Email">
-              <label for="" class="newsletter-email"
-                >Please enter your email address to subscribe to the newsletter
+              <label for="" class="newsletter-email">
+                Please enter your email address to subscribe to the newsletter
               </label>
               <input type="text" placeholder="email@example.com" />
               <button class="CTA__StyledLink NewsletterForm__Button">
@@ -36,8 +36,8 @@
 
 <script>
 export default {
-  name: "NewsletterSection",
-};
+  name: 'NewsletterSection',
+}
 </script>
 
 <style lang="scss" scoped>
@@ -92,7 +92,7 @@ export default {
           display: flex;
           -webkit-box-pack: justify;
           justify-content: space-between;
-            margin-bottom: 2rem;
+          margin-bottom: 2rem;
 
           label {
             border: 0;
@@ -147,11 +147,11 @@ export default {
     }
     .Newsletter__ImageWrapper {
       display: inline-block;
-    max-width: 100%;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    margin: 0;
+      max-width: 100%;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+      margin: 0;
     }
   }
 }

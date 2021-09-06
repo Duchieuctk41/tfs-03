@@ -8,8 +8,8 @@
 
 <script>
 export default {
-  name: "NavSecond",
-};
+  name: 'NavSecond',
+}
 </script>
 
 <style lang="scss" scoped>
@@ -22,13 +22,13 @@ h1 {
   border-bottom: 1px solid rgb(219, 229, 230);
   border-top: 1px solid #dbe5e6;
   .wide-container {
-    margin:0 auto;
+    margin: 0 auto;
     width: 95%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 54px;
-    
+
     .NavSecond__Heading {
       padding: 1.5rem 3rem;
       border-right: 1px solid rgb(219, 229, 230);

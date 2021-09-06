@@ -17,22 +17,23 @@
 </template>
 
 <script>
-import Intro from "@/components/modal/Intro.vue";
-import Options from "@/components/modal/Options.vue";
-import Checkout from "@/components/modal/Checkout.vue";
+import Intro from '@/components/modal/Intro.vue'
+import Options from '@/components/modal/Options.vue'
+import Checkout from '@/components/modal/Checkout.vue'
 export default {
-  name: "modalDemo",
+  name: 'ModalDemo',
   components: {
     Intro,
     Options,
     Checkout,
   },
+  emits: ['closeModal'],
   methods: {
     stopCloseModal(event) {
-      event.stopPropagation();
+      event.stopPropagation()
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
