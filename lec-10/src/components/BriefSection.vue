@@ -23,9 +23,9 @@
         <h3 class="Brief__Subheading">Getting started</h3>
         <ol class="OrderedList__List">
           <li
-            class="OrderedList__ListItem"
             v-for="val in getState.guide"
             :key="getState.guide[val]"
+            class="OrderedList__ListItem"
           >
             <div class="Spacer__Wrapper">
               <p class="Text__Wrapper">{{ val.content }}</p>
@@ -35,9 +35,9 @@
         <h3 class="Brief__Subheading">Ideas to test yourself</h3>
         <ul class="BulletedList__List">
           <li
-            class="BulletedList__ListItem"
             v-for="val in getState.idea"
             :key="getState.idea[val]"
+            class="BulletedList__ListItem"
           >
             <div class="Spacer__Wrapper">
               <p class="Text__Wrapper">{{ val.content }}</p>
@@ -46,18 +46,18 @@
         </ul>
       </div>
     </div>
-    <a @click="visitChallenHub" class="CTA__StyledLink">Visit challenge hub</a>
+    <a class="CTA__StyledLink" @click="visitChallenHub">Visit challenge hub</a>
   </section>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import {visitMixin} from "@/mixins/visitMixin";
+import { mapGetters } from 'vuex'
+import { visitMixin } from '@/mixins/visitMixin'
 export default {
-  name: "BriefSection",
+  name: 'BriefSection',
   mixins: [visitMixin],
-  computed: mapGetters({ getState: "allContent" }),
-};
+  computed: mapGetters({ getState: 'allContent' }),
+}
 </script>
 
 <style lang="scss" scoped>

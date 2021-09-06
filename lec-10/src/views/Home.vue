@@ -23,17 +23,17 @@
 
 <script>
 // @ is an alias to /src
-import Header from "@/components/Header.vue";
-import NavSecond from "@/components/NavSecond.vue";
-import ShowSection from "@/components/ShowSection.vue";
-import BriefSection from "@/components/BriefSection.vue";
-import FAQSection from "@/components/FAQSection.vue";
-import CommunitySection from "@/components/CommunitySection.vue";
-import NewsletterSection from "@/components/NewsletterSection.vue";
-import Footer from "@/components/Footer.vue";
+import Header from '@/components/Header.vue'
+import NavSecond from '@/components/NavSecond.vue'
+import ShowSection from '@/components/ShowSection.vue'
+import BriefSection from '@/components/BriefSection.vue'
+import FAQSection from '@/components/FAQSection.vue'
+import CommunitySection from '@/components/CommunitySection.vue'
+import NewsletterSection from '@/components/NewsletterSection.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     Header,
     NavSecond,
@@ -44,7 +44,7 @@ export default {
     NewsletterSection,
     Footer,
   },
-};
+}
 </script>
 
 <style lang="scss">
@@ -54,8 +54,8 @@ export default {
   margin: 0px auto;
 }
 .wide-container {
-      width: 95%;
-    max-width: 1400px;
-    margin: 0px auto;
+  width: 95%;
+  max-width: 1400px;
+  margin: 0px auto;
 }
 </style>

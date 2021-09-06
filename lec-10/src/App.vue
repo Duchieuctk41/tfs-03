@@ -2,8 +2,7 @@
   <router-view />
 </template>
 
-<style  lang="scss">
-
+<style lang="scss">
 html {
   font-size: 10px;
 }

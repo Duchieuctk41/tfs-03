@@ -10,22 +10,22 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
-  name: "Price",
+  name: 'Price',
   data() {
     return {
       pos: 0,
-    };
+    }
   },
-  computed: mapGetters({ state: "allModal" }),
+  computed: mapGetters({ state: 'allModal' }),
   methods: {
     changeOption() {
-      const len = this.state.options.length - 1;
-      this.pos === len ? (this.pos = 0) : this.pos++;
+      const len = this.state.options.length - 1
+      this.pos === len ? (this.pos = 0) : this.pos++
     },
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .DemoOptions__Wrapper {

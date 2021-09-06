@@ -1,31 +1,35 @@
 <template>
   <div class="DemoCheckout__Wrapper">
-    <button @click="paymentHandle" class="DemoCheckout__Button">
+    <button class="DemoCheckout__Button" @click="paymentHandle">
       Proceed to Payment
     </button>
     <button>Cancel Order</button>
     <div v-if="state.notif.length" class="DemoCheckout__Notif">
-      <Notif v-for="val in state.notif" :key="val.id" :title-post="val.content"/>
+      <Notif
+        v-for="val in state.notif"
+        :key="val.id"
+        :title-post="val.content"
+      />
     </div>
   </div>
 </template>
 <script>
-import Notif from "@/components/modal/Notif.vue";
-import { mapGetters, mapActions } from "vuex";
+import Notif from '@/components/modal/Notif.vue'
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: "Checkout",
- 
+  name: 'Checkout',
+
   components: {
     Notif,
   },
-  computed: mapGetters({ state: "allModal" }),
+  computed: mapGetters({ state: 'allModal' }),
   methods: {
-    ...mapActions(["addNotif"]),
+    ...mapActions(['addNotif']),
     paymentHandle() {
-      this.addNotif("payment success!")
+      this.addNotif('payment success!')
     },
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .DemoCheckout__Wrapper {
