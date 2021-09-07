@@ -31,16 +31,16 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	body := "Hello World!"
+	body := "Xin chao 500 ae"
 	err = ch.Publish(
 		"",     // exchange
 		q.Name, // routing key
-		false,  // mandatory
+		false,  // madatory
 		false,  // immediate
 		amqp.Publishing{
 			ContentType: "text/plain",
 			Body:        []byte(body),
 		})
 	failOnError(err, "Failed to publish a message")
-	log.Printf(" [x] Sent %s", body)
+	log.Printf("[x] send %s", body)
 }
