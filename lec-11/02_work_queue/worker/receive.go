@@ -16,11 +16,11 @@ func failOnError(err error, msg string) {
 
 func main() {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-	failOnError(err, "Failed to connect to RabbitMQ")
+	failOnError(err, "Failed to connect to rabbitMQ")
 	defer conn.Close()
 
 	ch, err := conn.Channel()
-	failOnError(err, "Failed to open a channel")
+	failOnError(err, "Failed to open channel")
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
@@ -33,15 +33,16 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
+	// chỉ gửi message khi worker rảnh
 	err = ch.Qos(
-		1,     // prefetch count
-		0,     // prefetch size
+		1,     // prefetch count // số lượng tối đa tìm nạp là 1
+		0,     // prefetch size //
 		false, // global
 	)
-	failOnError(err, "Failed to set QoS")
+	failOnError(err, "Failed to set Qos")
 
 	msgs, err := ch.Consume(
-		q.Name, // queue
+		q.Name, // name
 		"",     // consumer
 		false,  // auto-ack
 		false,  // exclusive
@@ -64,6 +65,6 @@ func main() {
 		}
 	}()
 
-	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+	log.Printf(" [*] Waiting for message. To exit press CTRL + C")
 	<-forever
 }

@@ -14,11 +14,10 @@ func failOnError(err error, msg string) {
 
 func main() {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-	failOnError(err, "Failed to connect to RabbitMQ")
+	failOnError(err, "Failed to connect rabbitMQ")
 	defer conn.Close()
 
 	ch, err := conn.Channel()
-	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
 	err = ch.ExchangeDeclare(
@@ -43,8 +42,8 @@ func main() {
 	failOnError(err, "Failed to declare a queue")
 
 	err = ch.QueueBind(
-		q.Name, // queue name
-		"",     // routing key
+		q.Name, // name
+		"",     // routing key // xuất message lên logs exchange thay vì xuất message ko tên, nhưng với fanout, gửi cho tất cả nên ko cần
 		"logs", // exchange
 		false,
 		nil,
@@ -52,7 +51,7 @@ func main() {
 	failOnError(err, "Failed to bind a queue")
 
 	msgs, err := ch.Consume(
-		q.Name, // queue
+		q.Name, // queue name
 		"",     // consumer
 		true,   // auto-ack
 		false,  // exclusive
@@ -69,7 +68,6 @@ func main() {
 			log.Printf(" [x] %s", d.Body)
 		}
 	}()
-
-	log.Printf(" [*] Waiting for logs. To exit press CTRL+C")
+	log.Printf(" [*] Waiting for logs. To exit press CTRL + C")
 	<-forever
 }

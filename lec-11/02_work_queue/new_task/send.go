@@ -20,7 +20,7 @@ func main() {
 	defer conn.Close()
 
 	ch, err := conn.Channel()
-	failOnError(err, "Failed to open a channel")
+	failOnError(err, "Failed to open channel")
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
@@ -37,7 +37,7 @@ func main() {
 	err = ch.Publish(
 		"",     // exchange
 		q.Name, // routing key
-		false,  // mandatory
+		false,  // madatory
 		false,
 		amqp.Publishing{
 			DeliveryMode: amqp.Persistent,
@@ -45,13 +45,13 @@ func main() {
 			Body:         []byte(body),
 		})
 	failOnError(err, "Failed to publish a message")
-	log.Printf(" [x] Sent %s", body)
+	log.Printf(" [x] send %s", body)
 }
 
 func bodyFrom(args []string) string {
 	var s string
-	if (len(args) < 2) || os.Args[1] == "" {
-		s = "hello"
+	if len(args) < 2 || os.Args[1] == "" {
+		s = "xin chao, minh la Hieu dep trai"
 	} else {
 		s = strings.Join(args[1:], " ")
 	}

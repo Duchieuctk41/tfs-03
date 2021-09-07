@@ -16,12 +16,10 @@ func failOnError(err error, msg string) {
 
 func main() {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-	failOnError(err, "Failed to connect to RabbitMQ")
-	defer conn.Close()
+	failOnError(err, "Failed to connect to rabbitMQ")
 
 	ch, err := conn.Channel()
-	failOnError(err, "Failed to open a channel")
-	defer ch.Close()
+	failOnError(err, "Failed to open channel")
 
 	err = ch.ExchangeDeclare(
 		"logs",   // name
@@ -32,7 +30,7 @@ func main() {
 		false,    // no-wait
 		nil,      // arguments
 	)
-	failOnError(err, "Failed to declare an exchange")
+	failOnError(err, "Failed to declare exchange")
 
 	body := bodyFrom(os.Args)
 	err = ch.Publish(
@@ -46,13 +44,13 @@ func main() {
 		})
 	failOnError(err, "Failed to publish a message")
 
-	log.Printf(" [x] Sent %s", body)
+	log.Printf(" [x] send %s", body)
 }
 
 func bodyFrom(args []string) string {
 	var s string
-	if (len(args) < 2) || os.Args[1] == "" {
-		s = "hello"
+	if len(args) < 2 || os.Args[1] == "" {
+		s = "Hi, minh la Hieu. Minh den tu trai dat"
 	} else {
 		s = strings.Join(args[1:], " ")
 	}

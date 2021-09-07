@@ -27,9 +27,9 @@ func main() {
 		false,   // delete when unused
 		false,   // exclusive
 		false,   // no-wait
-		nil,     // arguments
+		nil,     //arguments
 	)
-	failOnError(err, "Failed to declare a queue")
+	failOnError(err, "Failed to declare to a queue")
 
 	msgs, err := ch.Consume(
 		q.Name, // queue
@@ -50,6 +50,6 @@ func main() {
 		}
 	}()
 
-	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+	log.Printf(" [*] Waiting for message. To exit press CTRL + C")
 	<-forever
 }
