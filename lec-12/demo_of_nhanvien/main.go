@@ -22,7 +22,7 @@ func sendMail(db *sql.DB, done chan interface{}, email <-chan string, id chan in
 		select {
 		case mail := <-email:
 			fmt.Printf("sending email to: %v", mail) // send tin nhắn cho email này
-			sent(db, <-id) // update trạng thái đã gửi email
+			sent(db, <-id)                           // update trạng thái đã gửi email
 		case <-done:
 			return
 		}
