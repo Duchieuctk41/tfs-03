@@ -1,12 +1,12 @@
-package bubble_sort
+package main
 
-func BubbleSort(arr []int) []int {
-	for i := 0; i < len(arr)-1; i++ {
-		for y := 0; y < len(arr)-1-i; y++ {
-			if arr[y] > arr[y+1] {
-				arr[y], arr[y+1] = arr[y+1], arr[y]
+func BubbleSort(a []int) []int {
+	for i := 0; i < len(a)-1; i++ {
+		for y := 0; y < len(a)-1-i; y++ {
+			if a[y] > a[y+1] {
+				a[y], a[y+1] = a[y+1], a[y]
 			}
 		}
 	}
-	return arr
+	return a
 }
