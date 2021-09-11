@@ -35,13 +35,13 @@ func main() {
 	ch := make(chan Review)
 	var wg sync.WaitGroup
 
-	time_start := time.Now()
+	timeStart := time.Now()
 	wg.Add(2)
 	go GetReview(&wg, ch)
 	go SetReview(es, &wg, ch)
 	wg.Wait()
-	time_end := time.Now()
-	log.Println(time_end.Sub(time_start))
+	timeEnd := time.Now()
+	log.Println(timeEnd.Sub(timeStart))
 	// Search(es)
 	log.Println("success")
 }
