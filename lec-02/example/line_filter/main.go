@@ -4,28 +4,23 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
 )
 
 func main() {
-	// user input then output in cmd (like cin >>, cout << in C++)
+	// NewReader trả về  bộ đệm mới với kích thước mặc định là 4K 
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter text: ")
 	text, _ := reader.ReadString('\n')
 	fmt.Println(text)
 
-	// user input then toUpper string
+	// NewScanner đọc từ bộ đệm có sẵn, giá trị giới hạn dòng 64k (4096 byte)
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter text: ")
 	for scanner.Scan() {
-		ucl := strings.ToUpper(scanner.Text())
-		fmt.Println(ucl)
+		fmt.Println(scanner.Text())
 		return
 	}
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintf(os.Stderr, "error", err)
-		os.Exit(1)
-	}
+
 	defer func() {
 		fmt.Println("Stopped")
 	}()
