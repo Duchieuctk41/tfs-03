@@ -2,11 +2,11 @@ package main
 
 import "testing"
 
-func TestBubbleSort(t *testing.T) {
-	aInput := []int{5, 1, 8, 3, 6}       // giá trị đầu vào
-	expectedOutput := []int{1, 3, 5, 6, 8} // giá trị mong đợi
+func TestMergeSort(t *testing.T) {
+	aInput := []int{5, 1, 8, 3, 6}
+	expectedOutput := []int{1, 3, 5, 6, 8}
 
-	realOutput := BubbleSort(aInput) // giá trị trả về thực tế
+	realOutput := MergeSort(aInput)
 
 	if !equal(expectedOutput, realOutput) {
 		t.Errorf("Got: %v,  but expected: %v", expectedOutput, realOutput)
