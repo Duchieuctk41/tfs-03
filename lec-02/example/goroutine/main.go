@@ -1,10 +1,14 @@
+// https://tour.golang.org/concurrency/7
+// So sánh 2 cây nhị phân có cùng độ dài chuỗi giá trị hay không
 package main
 
 import (
-	"./tree"
 	"fmt"
+
+	"golang.org/x/tour/tree"
 )
 
+// Đệ quy 
 func WalkRecursive(t *tree.Tree, ch chan int) {
 	if t != nil {
 		WalkRecursive(t.Left, ch)
@@ -23,8 +27,8 @@ func Same(t1, t2 *tree.Tree) bool {
 	go Walk(t1, ch1)
 	go Walk(t2, ch2)
 	for {
-		n1, ok1 := <- ch1
-		n2, ok2 := <- ch2
+		n1, ok1 := <-ch1
+		n2, ok2 := <-ch2
 		if ok1 != ok2 || n1 != n2 {
 			return false
 		}
@@ -36,8 +40,6 @@ func Same(t1, t2 *tree.Tree) bool {
 }
 
 func main() {
-	ch := make(chan int)
-	go Walk(tree.New(1), ch)
-	fmt.Println(Same(tree.New(1), tree.New(1)))
-	fmt.Println(Same(tree.New(1), tree.New(2)))
+	fmt.Println(Same(tree.New(1), tree.New(1))) // true
+	fmt.Println(Same(tree.New(1), tree.New(2))) // false
 }
