@@ -5,11 +5,11 @@ import (
 	"context"
 	"encoding/csv"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"os"
 	"sync"
-	"time"
 
 	"github.com/elastic/go-elasticsearch/v6"
 	"github.com/elastic/go-elasticsearch/v6/esapi"
@@ -22,47 +22,52 @@ type Review struct {
 }
 
 func main() {
+	// connect db
 	es, err := elasticsearch.NewDefaultClient()
 	if err != nil {
-		log.Fatalf("Error creating the client: %s", err)
+		log.Fatalf("Error when create es client: %s", err)
 	}
+
 	res, err := es.Info()
 	if err != nil {
-		log.Fatalf("Error getting response: %s", err)
+		log.Fatalf("Error when get response %s", err)
 	}
+
 	defer res.Body.Close()
 
+	// scan csv and push to db
+	wg := sync.WaitGroup{}
 	ch := make(chan Review)
-	var wg sync.WaitGroup
 
-	timeStart := time.Now()
 	wg.Add(2)
-	go GetReview(&wg, ch)
-	go SetReview(es, &wg, ch)
+
+	ScanCSVFile(&wg, ch)
+	PushCSVToDatabase(es, &wg, ch)
+
 	wg.Wait()
-	timeEnd := time.Now()
-	log.Println(timeEnd.Sub(timeStart))
-	// Search(es)
-	log.Println("success")
+	fmt.Println("done")
 }
 
-func GetReview(wg *sync.WaitGroup, ch chan Review) {
+func ScanCSVFile(wg *sync.WaitGroup, ch chan<- Review) {
 	defer wg.Done()
 	defer close(ch)
+
 	file, err := os.Open("csv/train.csv")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file.Close()
+
 	r := csv.NewReader(file)
+
 	for {
 		record, err := r.Read()
 		if err == io.EOF {
-			break
+			log.Fatal()
 		}
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal()
 		}
+
 		item := Review{
 			Vote:    record[0],
 			Title:   record[1],
@@ -72,25 +77,29 @@ func GetReview(wg *sync.WaitGroup, ch chan Review) {
 	}
 }
 
-func SetReview(es *elasticsearch.Client, wg *sync.WaitGroup, ch chan Review) {
+func PushCSVToDatabase(es *elasticsearch.Client, wg *sync.WaitGroup, ch <-chan Review) {
 	defer wg.Done()
 	for {
 		item, ok := <-ch
 		if !ok {
 			return
 		}
-		line, _ := json.Marshal(item)
+
+		line, _ := json.Marshal(item) // parsing struct to JSON
+
+		// create db
 		req := esapi.IndexRequest{
-			Index: "reviews",
+			Index: "test",
 			Body:  bytes.NewReader(line),
 		}
+
 		req.Do(context.Background(), es)
 	}
 }
 
 func Search(es *elasticsearch.Client) {
-	time_start := time.Now()
-	str := "It does sort of sway a little bit when you push the clothes to make more room, but because the pieces are screwed together I think it's fine and doesn't seem like it will topple over. For my purposes, it works just fine and fits nicely beside the washer without taking up too much room. Definitely has saved me from doing the trip up the stairs with an armful of wet"
+	str := "i found something"
+
 	var buf bytes.Buffer
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
@@ -99,11 +108,13 @@ func Search(es *elasticsearch.Client) {
 			},
 		},
 	}
+
+	fmt.Printf("%T", query)
+
 	if err := json.NewEncoder(&buf).Encode(query); err != nil {
 		log.Fatalf("Error encoding query: %s", err)
 	}
 
-	// Perform the search request.
 	res, err := es.Search(
 		es.Search.WithContext(context.Background()),
 		es.Search.WithIndex("reviews"),
@@ -116,7 +127,4 @@ func Search(es *elasticsearch.Client) {
 	}
 	defer res.Body.Close()
 
-	time_end := time.Now()
-	log.Println(time_end.Sub(time_start))
-	log.Println(res)
 }

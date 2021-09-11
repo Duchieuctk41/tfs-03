@@ -1,4 +1,4 @@
-package main
+package fibo
 
 import "testing"
 
@@ -8,6 +8,6 @@ func TestFibo(t *testing.T) {
 	realOutput := Fibo(nInput)
 
 	if expectedOutput != realOutput {
-		t.Errorf("Got %v, but expected: %v", expectedOutput, realOutput)
+		t.Errorf("Got: %v, but expected: %v", expectedOutput, realOutput)
 	}
 }
