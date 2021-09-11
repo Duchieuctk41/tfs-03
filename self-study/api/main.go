@@ -19,18 +19,17 @@ type Catalog struct {
 	Name string
 }
 
-func (y *Catalog) Create(db *sql.DB) error {
-	// _, err := db.Exec(`INSERT INTO catalog(id, name) VALUES(id = ?, name = ?)`, &y.ID, &y.Name)
-	insert, err := db.Query("INSERT INTO catalog(id, name) VALUES (?, ?)", y.ID, y.Name)
+func (ca *Catalog) Create(db *sql.DB) error {
+	// _, err := db.Exec(`INSERT INTO catalog(id, name) VALUES(?, ?)`, ca.ID, ca.Name)
+	insert, err := db.Query("INSERT INTO catalog(id, name) VALUES (?, ?)", ca.ID, ca.Name)
 	if err != nil {
 		return err
 	}
-	fmt.Println(insert)
 	defer insert.Close()
 	return nil
 }
 
-type Users struct {
+type Database struct {
 	db *sql.DB
 }
 
@@ -42,17 +41,17 @@ func main() {
 
 	defer db.Close()
 
-	users := &Users{db: db}
+	database := &Database{db: db}
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/api/cataloger", users.Welcome).Methods("POST")
+	router.HandleFunc("/api/cataloger", database.Welcome).Methods("POST")
 	log.Fatal(http.ListenAndServe(":3000", router))
 
 }
 
-func (users *Users) Welcome(w http.ResponseWriter, r *http.Request) {
-	rou := &Catalog{3, "huu"}
-	var ca Cataloger
-	ca = rou
-	ca.Create(users.db)
+func (database *Database) Welcome(w http.ResponseWriter, r *http.Request) {
+	catalog := &Catalog{3, "huu"}
+	var cataloger Cataloger
+	cataloger = catalog
+	cataloger.Create(database.db)
 	fmt.Fprintf(w, "hello world")
 }
