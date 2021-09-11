@@ -61,7 +61,7 @@ func main() {
 	log.Println(timeEnd.Sub(timeStart)) // 1.502321918s
 }
 
-func crawl(wg *sync.WaitGroup, ch chan int) {
+func crawl(wg *sync.WaitGroup, ch chan<- int) {
 	defer wg.Done()
 	for i := 0; i < 5; i++ {
 		ch <- i
@@ -70,7 +70,7 @@ func crawl(wg *sync.WaitGroup, ch chan int) {
 	close(ch)
 }
 
-func create(wg *sync.WaitGroup, ch chan int) {
+func create(wg *sync.WaitGroup, ch <-chan int) {
 	defer wg.Done()
 	for {
 		i, open := <-ch
