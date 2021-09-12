@@ -41,8 +41,8 @@ func main() {
 
 	wg.Add(2)
 
-	ScanCSVFile(&wg, ch)
-	PushCSVToDatabase(es, &wg, ch)
+	go ScanCSVFile(&wg, ch)
+	go PushCSVToDatabase(es, &wg, ch)
 
 	wg.Wait()
 	fmt.Println("done")
