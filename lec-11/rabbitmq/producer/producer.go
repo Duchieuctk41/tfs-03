@@ -1,11 +1,11 @@
 package producer
 
 import (
-	"buoi11/model"
-	rabbitmq "buoi11/rmq"
 	"context"
 	"encoding/json"
 	"fmt"
+	"learn/mail"
+	"learn/rabbitmq"
 	"math/rand"
 	"sync"
 	"time"
@@ -25,11 +25,11 @@ type Producer struct {
 	exchange   string
 	exchType   string
 	routingKey string
-	mailChan   chan *model.EmailContent
+	inChan     <-chan *mail.EmailContent
 }
 
 //Creates new producer
-func NewProducer(ctx context.Context, wg *sync.WaitGroup, channel *amqp.Channel, rmqConfig rabbitmq.RabbitMQConfig, mailChan chan *model.EmailContent) *Producer {
+func NewProducer(ctx context.Context, wg *sync.WaitGroup, channel *amqp.Channel, rmqConfig rabbitmq.RabbitMQConfig, ch <-chan *mail.EmailContent) *Producer {
 	return &Producer{
 		ctx:        ctx,
 		wg:         wg,
@@ -37,7 +37,7 @@ func NewProducer(ctx context.Context, wg *sync.WaitGroup, channel *amqp.Channel,
 		exchange:   rmqConfig.Exch,
 		exchType:   rmqConfig.ExchType,
 		routingKey: rmqConfig.RoutingKey,
-		mailChan:   mailChan,
+		inChan:     ch,
 	}
 }
 
@@ -52,7 +52,7 @@ func (p *Producer) Start() {
 
 	for {
 		select {
-		case d := <-p.mailChan:
+		case d := <-p.inChan:
 			logrus.Info("Sending mail infomation to consumer ", d.ToUser.Name)
 			data, _ := json.Marshal(d)
 			err := p.publish(p.exchange, p.routingKey, data)
