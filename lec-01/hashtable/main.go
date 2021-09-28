@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+//
 const ArraySize = 10
 
 type HashTable struct {
@@ -24,8 +25,6 @@ type User struct {
 	Address string
 }
 
-type ListUser []User
-
 func (h *HashTable) Insert(key string, value User) {
 	index := hash(key)
 	h.array[index].insert(key, value)
@@ -40,12 +39,12 @@ func (b *bucket) insert(k string, v User) {
 		node := b.head
 		for {
 			if node != nil {
-				d := node.value
-				if d.Email == k {
-					fmt.Println(k, " existed!")
+				d := node.key
+				if d == k {
+					fmt.Println("existed!")
 					break
 				} else {
-					newNode := &bucketNode{key: k, value: v}
+					newNode := &bucketNode{}
 					newNode.next = b.head
 					b.head = newNode
 					break
@@ -72,14 +71,6 @@ func (b *bucket) search(k string) interface{} {
 	return "not found"
 }
 
-func Create() *HashTable {
-	result := &HashTable{}
-	for i := range result.array {
-		result.array[i] = &bucket{}
-	}
-	return result
-}
-
 func hash(k string) int {
 	sum := 0
 	for _, v := range k {
@@ -88,25 +79,30 @@ func hash(k string) int {
 	return sum % ArraySize
 }
 
+func NewHashTable() *HashTable {
+	result := &HashTable{}
+	for i := range result.array {
+		result.array[i] = &bucket{}
+	}
+	return result
+}
+
 func main() {
-	hashTable := Create()
+	hashTable := NewHashTable()
 	user1 := User{
-		Email:   "Hieu@gmail.com",
-		Name:    "Hieu",
-		Address: "Dalat",
+		Email:   "hieu",
+		Name:    "hieu luon",
+		Address: "da lat",
 	}
 	user2 := User{
-		Email:   "Hieu@gmail.com",
-		Name:    "Hieu",
-		Address: "Dalat1",
+		Email:   "hieu",
+		Name:    "hieu luon",
+		Address: "da lat",
 	}
 
-	listUser := ListUser{user1, user2}
+	hashTable.Insert(user1.Email, user1)
+	hashTable.Insert(user2.Email, user2)
 
-	for _, v := range listUser {
-		hashTable.Insert(v.Email, v)
-	}
-
-	fmt.Println("Looking for Hieu@gmail.com: ", hashTable.Search("Hieu@gmail.com"))
-	fmt.Println("Looking for notfound@gmail.com: ", hashTable.Search("notfound@gmail.com"))
+	fmt.Println("looking for hieu", hashTable.Search("hieu"))
+	fmt.Println("looking for notfound", hashTable.Search("notfound"))
 }
