@@ -1,9 +1,12 @@
 package consumer
 
 import (
-	email "buoi11/mail"
-	rabbitmq "buoi11/rmq"
 	"context"
+	"database/sql"
+	"encoding/json"
+	"fmt"
+	"learn/mail"
+	"learn/rabbitmq"
 	"sync"
 
 	"github.com/sirupsen/logrus"
@@ -18,9 +21,11 @@ type Consumer struct {
 	exchType   string
 	bindingKey string
 	queue      string
+	mailer     mail.Mailer
+	db         *sql.DB
 }
 
-func NewConsumer(ctx context.Context, wg *sync.WaitGroup, chanel *amqp.Channel, rmqConfig rabbitmq.RabbitMQConfig) *Consumer {
+func NewConsumer(ctx context.Context, wg *sync.WaitGroup, chanel *amqp.Channel, rmqConfig rabbitmq.RabbitMQConfig, mailer mail.Mailer, db *sql.DB) *Consumer {
 	return &Consumer{
 		ctx:        ctx,
 		wg:         wg,
@@ -29,11 +34,13 @@ func NewConsumer(ctx context.Context, wg *sync.WaitGroup, chanel *amqp.Channel, 
 		exchType:   rmqConfig.ExchType,
 		bindingKey: rmqConfig.RoutingKey,
 		queue:      rmqConfig.Queue,
+		mailer:     mailer,
+		db: db,
 	}
 }
 
 func (c *Consumer) Start() {
-	if c.chanel == nil || c.queue == "" {
+	if c.chanel == nil || c.queue == "" || c.mailer == nil || c.db == nil {
 		logrus.Error("wrong consumer config")
 		return
 	}
@@ -57,9 +64,20 @@ func (c *Consumer) Start() {
 
 	for {
 		select {
-		case d := <-msgs:
-			email.SendMail(d.Body)
-			d.Ack(false)
+		case em := <-msgs:
+			em.Ack(false)
+			var sendMail mail.EmailContent
+			_ = json.Unmarshal(em.Body, &sendMail)
+			err := c.mailer.Send(&sendMail)
+			if err != nil {
+				fmt.Println("Cannot send email due to error: ", err)
+				continue
+			}
+			// update sql data
+			_, err = c.db.Exec("UPDATE ecommerce.orders SET thank_you_email_sent = true WHERE id = ?", true, sendMail.ID)
+			if err != nil {
+				fmt.Println("Cannot update thankyou_email_sent to true")
+			}
 		case <-c.ctx.Done():
 			logrus.Info("Exiting consumer")
 			c.wg.Done()
