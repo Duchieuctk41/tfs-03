@@ -1,19 +1,18 @@
-package driver
+package database
 
 import (
 	"database/sql"
 	"fmt"
-
-	_ "github.com/go-sql-driver/mysql"
+	_"github.com/go-sql-driver/mysql"
 )
 
-type MySqlDB struct {
+type MysqlDb struct {
 	SQL *sql.DB
 }
 
-var Mysql = &MySqlDB{}
+var Mysql = &MysqlDb{}
 
-func Connect(host, port, user, password, dbname string) *MySqlDB {
+func Connect(user, password, host, port, dbname string) *MysqlDb {
 	connStr := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
 		user, password, host, port, dbname)
 	db, err := sql.Open("mysql", connStr)

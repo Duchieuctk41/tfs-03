@@ -3,8 +3,8 @@ package repoimpl
 import (
 	"database/sql"
 	"fmt"
-	models "learn/model"
-	repo "learn/repository"
+	"learn/models"
+	"learn/repo"
 )
 
 type UserRepoImpl struct {
@@ -21,14 +21,12 @@ func (u *UserRepoImpl) Select() ([]models.User, error) {
 	users := make([]models.User, 0)
 
 	rows, err := u.Db.Query("SELECT * FROM users")
-
 	if err != nil {
 		return users, err
 	}
 
 	for rows.Next() {
 		user := models.User{}
-		// SELECT id, name, gender, email FROM meo.users
 		err := rows.Scan(&user.ID, &user.Name, &user.Gender, &user.Email)
 		if err != nil {
 			break
@@ -36,6 +34,7 @@ func (u *UserRepoImpl) Select() ([]models.User, error) {
 
 		users = append(users, user)
 	}
+
 	err = rows.Err()
 	if err != nil {
 		return users, err
@@ -46,7 +45,8 @@ func (u *UserRepoImpl) Select() ([]models.User, error) {
 func (u *UserRepoImpl) Insert(user models.User) error {
 	insertStatement := `
 		INSERT INTO users(id, name, gender, email)
-		VALUES (?, ?, ?, ?)`
+		VALUES(?, ?, ?, ?)
+	`
 	_, err := u.Db.Exec(insertStatement, user.ID, user.Name, user.Gender, user.Email)
 	if err != nil {
 		return err

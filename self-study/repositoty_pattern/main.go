@@ -2,44 +2,35 @@ package main
 
 import (
 	"fmt"
-	"learn/driver"
-	models "learn/model"
-	"learn/repository/repoimpl"
+	"learn/database"
+	"learn/models"
+	"learn/repo/repoimpl"
 )
 
 const (
-	host     = "localhost"
-	port     = "3306"
 	user     = "root"
 	password = "password"
+	host     = "localhost"
+	port     = "3306"
 	dbname   = "meo"
 )
 
 func main() {
-	db := driver.Connect(host, port, user, password, dbname)
+	db := database.Connect(user, password, host, port, dbname)
 
 	err := db.SQL.Ping()
 	if err != nil {
 		panic(err)
 	}
-
 	userRepo := repoimpl.NewUserRepo(db.SQL)
 
-	user1 := models.User{
-		ID:     1,
-		Name:   "Son Tung",
-		Gender: "male",
-		Email:  "mtp@gmail.com",
+	user := models.User{
+		ID:     12,
+		Name:   "hieu chu nhat",
+		Gender: "be de",
+		Email:  "duchieu@gmail.com",
 	}
-	user2 := models.User{
-		ID:     2,
-		Name:   "Dan Truong",
-		Gender: "male",
-		Email:  "dante@gmail.com",
-	}
-
-	userRepo.Insert(user1)
-	userRepo.Insert(user2)
+	userRepo.Insert(user)
 
 	users, _ := userRepo.Select()
 
