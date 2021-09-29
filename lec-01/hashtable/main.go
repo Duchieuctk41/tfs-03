@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 
-//
 const ArraySize = 10
 
 type HashTable struct {
@@ -20,10 +19,11 @@ type bucketNode struct {
 }
 
 type User struct {
-	Email   string
-	Name    string
-	Address string
+	Name   string
+	Gender string
 }
+
+type ListUser []User
 
 func (h *HashTable) Insert(key string, value User) {
 	index := hash(key)
@@ -39,19 +39,18 @@ func (b *bucket) insert(k string, v User) {
 		node := b.head
 		for {
 			if node != nil {
-				d := node.key
-				if d == k {
-					fmt.Println("existed!")
+				if node.key == k {
+					fmt.Println("existed")
 					break
 				} else {
-					newNode := &bucketNode{}
+					newNode := &bucketNode{key: k, value: v}
 					newNode.next = b.head
 					b.head = newNode
 					break
 				}
 			}
-			node = node.next
 		}
+		node = node.next
 	}
 }
 
@@ -89,20 +88,14 @@ func NewHashTable() *HashTable {
 
 func main() {
 	hashTable := NewHashTable()
-	user1 := User{
-		Email:   "hieu",
-		Name:    "hieu luon",
-		Address: "da lat",
-	}
-	user2 := User{
-		Email:   "hieu",
-		Name:    "hieu luon",
-		Address: "da lat",
+
+	user := User{
+		Name:   "hieu",
+		Gender: "femalemeo",
 	}
 
-	hashTable.Insert(user1.Email, user1)
-	hashTable.Insert(user2.Email, user2)
-
-	fmt.Println("looking for hieu", hashTable.Search("hieu"))
-	fmt.Println("looking for notfound", hashTable.Search("notfound"))
+	hashTable.Insert(user.Name, user)
+	hashTable.Insert(user.Name, user)
+	fmt.Println("looking for hieu: ", hashTable.Search("hieu"))
+	fmt.Println("looking for notfound: ", hashTable.Search("notfound"))
 }

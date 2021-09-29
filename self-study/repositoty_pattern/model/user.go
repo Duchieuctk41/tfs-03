@@ -1,8 +1,8 @@
 package model
 
 type User struct {
-	ID int
-	Name string
+	ID     int
+	Name   string
 	Gender string
-	Email string
+	Email  string
 }
