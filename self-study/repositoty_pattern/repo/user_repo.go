@@ -1,6 +1,6 @@
-package repository
+package repo
 
-import models "learn/model"
+import "learn/models"
 
 type UserRepo interface {
 	Select() ([]models.User, error)
