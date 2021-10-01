@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/csv"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -10,43 +9,33 @@ import (
 )
 
 type User struct {
-	Email    string
-	UserName string
-	Password string
+	Email   string
+	Name    string
+	Address string
 }
 
-var index = make(map[string]User)
+var user = make(map[string]User)
 
 func main() {
 	wg := sync.WaitGroup{}
 	ch := make(chan User)
 
-	// scan csv & map User
 	wg.Add(2)
-	go scanCSVFile(&wg, ch)
+	go scanFile(&wg, ch)
 	go mapUser(&wg, ch)
 	wg.Wait()
 
-	// search 
-	fmt.Println(searchByEmail("a@gmail.com"))
+	search("a@gmail.com")
+
 }
 
-func searchByEmail(str string) interface{} {
-	if v, ok := index[str]; ok {
-		return v
-	} else {
-		return "not found"
-	}
-}
-
-func scanCSVFile(wg *sync.WaitGroup, ch chan<- User) {
+func scanFile(wg *sync.WaitGroup, ch chan<- User) {
 	defer wg.Done()
 	defer close(ch)
-	// open file
-	file, err := os.Open("map.csv")
 
+	file, err := os.Open("map.csv")
 	if err != nil {
-		log.Fatalf("error when open file csv%s", err)
+		log.Fatalf("%s", err)
 	}
 
 	r := csv.NewReader(file)
@@ -59,13 +48,12 @@ func scanCSVFile(wg *sync.WaitGroup, ch chan<- User) {
 		if err != nil {
 			log.Fatal(err)
 		}
-
 		item := User{
-			Email:    record[0],
-			UserName: record[1],
-			Password: record[2],
+			Email:   record[0],
+			Name:    record[1],
+			Address: record[2],
 		}
-		index[item.Email] = item
+		ch <- item
 	}
 }
 
@@ -76,6 +64,14 @@ func mapUser(wg *sync.WaitGroup, ch <-chan User) {
 		if !ok {
 			return
 		}
-		index[item.Email] = item
+		user[item.Email] = item
+	}
+}
+
+func search(email string) interface{} {
+	if v, ok := user[email]; ok {
+		return v
+	} else {
+		return "not found"
 	}
 }
