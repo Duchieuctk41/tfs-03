@@ -2,31 +2,31 @@ package main
 
 import "fmt"
 
-// Stack represents stack that hold a slice
+// stack
 type Stack struct {
-	items []int
+	array []int
 }
 
-// Push will add a value at the end
+// push stack
 func (s *Stack) Push(i int) {
-	s.items = append(s.items, i)
+	s.array = append(s.array, i)
 }
 
-// Pop will remove a value at the end
+// pop stack
 func (s *Stack) Pop() int {
-	l := len(s.items) - 1
-	toRemove := s.items[l]
-	s.items = s.items[:l]
+	l := len(s.array) - 1
+	toRemove := s.array[l]
+	s.array = s.array[:l]
 	return toRemove
 }
 
 func main() {
-	myStack := Stack{}
-	fmt.Println(myStack)
-	myStack.Push(100)
-	myStack.Push(200)
-	myStack.Push(300)
-	fmt.Println(myStack)
-	myStack.Pop()
-	fmt.Println(myStack)
+	stack := Stack{}
+	fmt.Println(stack)
+	stack.Push(100)
+	stack.Push(200)
+	stack.Push(300)
+	fmt.Println(stack)
+	stack.Pop()
+	fmt.Println(stack)
 }
