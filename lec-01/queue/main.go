@@ -2,31 +2,30 @@ package main
 
 import "fmt"
 
-// Queue represents a queue that holds a slice
+// queue
 type Queue struct {
-	items []int
+	array []int
 }
 
-// Enqueue adds a value at the end
-func (q *Queue) Enqueue(i int) {
-	q.items = append(q.items, i)
+// EnQueue
+func (q *Queue) EnQueue(i int) {
+	q.array = append(q.array, i)
 }
 
-// Dequeue removes a value at the front
-// and return the removed value
+// DeQueue
 func (q *Queue) Dequeue() int {
-	toRemove := q.items[0]
-	q.items = q.items[1:]
+	toRemove := q.array[0]
+	q.array = q.array[1:]
 	return toRemove
 }
 
-func main(){
-	myQueue := Queue{}
-	fmt.Println(myQueue)
-	myQueue.Enqueue(100)
-	myQueue.Enqueue(200)
-	myQueue.Enqueue(300)
-	fmt.Println(myQueue)
-	myQueue.Dequeue()
-	fmt.Println(myQueue)
+func main() {
+	queue := Queue{}
+	fmt.Println(queue)
+	queue.EnQueue(100)
+	queue.EnQueue(200)
+	queue.EnQueue(300)
+	fmt.Println(queue)
+	queue.Dequeue()
+	fmt.Println(queue)
 }
